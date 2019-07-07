@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>两阶段借用 - Rustc 开发指南</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rustc 开发指南">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../about-this-guide.html">关于本指南</a></li><li class="spacer"></li><li><a href="../part-1-intro.html"><strong aria-hidden="true">1.</strong> 第一部分：rustc 的构建、调试与贡献</a></li><li><ol class="section"><li><a href="../compiler-team.html"><strong aria-hidden="true">1.1.</strong> 关于编译器团队</a></li><li><a href="../how-to-build-and-run.html"><strong aria-hidden="true">1.2.</strong> 如何构建并运行编译器</a></li><li><ol class="section"><li><a href="../build-install-distribution-artifacts.html"><strong aria-hidden="true">1.2.1.</strong> 构建并安装发行版工件</a></li><li><a href="../compiler-documenting.html"><strong aria-hidden="true">1.2.2.</strong> 构建编译器文档</a></li></ol></li><li><a href="../tests/intro.html"><strong aria-hidden="true">1.3.</strong> 编译器测试框架</a></li><li><ol class="section"><li><a href="../tests/running.html"><strong aria-hidden="true">1.3.1.</strong> 运行测试</a></li><li><a href="../tests/adding.html"><strong aria-hidden="true">1.3.2.</strong> 添加新测试</a></li><li><a href="../compiletest.html"><strong aria-hidden="true">1.3.3.</strong> 使用 compiletest + 命令来控制测试执行</a></li></ol></li><li><a href="../walkthrough.html"><strong aria-hidden="true">1.4.</strong> 攻略：一次典型的贡献</a></li><li><a href="../implementing_new_features.html"><strong aria-hidden="true">1.5.</strong> 实现新特性</a></li><li><a href="../stabilization_guide.html"><strong aria-hidden="true">1.6.</strong> 稳定化特性</a></li><li><a href="../compiler-debugging.html"><strong aria-hidden="true">1.7.</strong> 调试编译器</a></li><li><a href="../profiling.html"><strong aria-hidden="true">1.8.</strong> 剖析编译器性能</a></li><li><ol class="section"><li><a href="../profiling/with_perf.html"><strong aria-hidden="true">1.8.1.</strong> 使用 linux perf 工具剖析</a></li></ol></li><li><a href="../conventions.html"><strong aria-hidden="true">1.9.</strong> 编码约定</a></li><li><a href="../crates-io.html"><strong aria-hidden="true">1.10.</strong> crates.io 依赖</a></li><li><a href="../diagnostics.html"><strong aria-hidden="true">1.11.</strong> 消除错误和其它诊断报告</a></li><li><ol class="section"><li><a href="../diagnostics/json-format.html"><strong aria-hidden="true">1.11.1.</strong> JSON 诊断报告格式</a></li></ol></li></ol></li><li><a href="../part-2-intro.html"><strong aria-hidden="true">2.</strong> 第二部分：rustc 的工作原理</a></li><li><ol class="section"><li><a href="../high-level-overview.html"><strong aria-hidden="true">2.1.</strong> 编译器源码概览</a></li><li><a href="../rustc-driver.html"><strong aria-hidden="true">2.2.</strong> rustc 驱动与接口</a></li><li><ol class="section"><li><a href="../rustdoc.html"><strong aria-hidden="true">2.2.1.</strong> rustdoc</a></li></ol></li><li><a href="../query.html"><strong aria-hidden="true">2.3.</strong> 查询：需求驱动的编译</a></li><li><ol class="section"><li><a href="../queries/query-evaluation-model-in-detail.html"><strong aria-hidden="true">2.3.1.</strong> 查询求值模型详解</a></li><li><a href="../queries/incremental-compilation.html"><strong aria-hidden="true">2.3.2.</strong> 增量编译</a></li><li><a href="../queries/incremental-compilation-in-detail.html"><strong aria-hidden="true">2.3.3.</strong> 增量编译详解</a></li><li><a href="../incrcomp-debugging.html"><strong aria-hidden="true">2.3.4.</strong> 调试与测试</a></li></ol></li><li><a href="../the-parser.html"><strong aria-hidden="true">2.4.</strong> 解析器</a></li><li><a href="../test-implementation.html"><strong aria-hidden="true">2.5.</strong> #[test] 实现</a></li><li><a href="../macro-expansion.html"><strong aria-hidden="true">2.6.</strong> 宏展开</a></li><li><a href="../name-resolution.html"><strong aria-hidden="true">2.7.</strong> 名字求解</a></li><li><a href="../hir.html"><strong aria-hidden="true">2.8.</strong> HIR（上层 IR）</a></li><li><ol class="section"><li><a href="../lowering.html"><strong aria-hidden="true">2.8.1.</strong> 将 AST 降低为 HIR</a></li><li><a href="../hir-debugging.html"><strong aria-hidden="true">2.8.2.</strong> 调试</a></li></ol></li><li><a href="../ty.html"><strong aria-hidden="true">2.9.</strong> ty 模块：类型的表示</a></li><li><a href="../kinds.html"><strong aria-hidden="true">2.10.</strong> 种类</a></li><li><a href="../type-inference.html"><strong aria-hidden="true">2.11.</strong> 类型推导</a></li><li><a href="../traits/resolution.html"><strong aria-hidden="true">2.12.</strong> Trait 解算（旧式风格）</a></li><li><ol class="section"><li><a href="../traits/hrtb.html"><strong aria-hidden="true">2.12.1.</strong> 高阶 trait 绑定</a></li><li><a href="../traits/caching.html"><strong aria-hidden="true">2.12.2.</strong> 缓存的细节</a></li><li><a href="../traits/specialization.html"><strong aria-hidden="true">2.12.3.</strong> 特化</a></li></ol></li><li><a href="../traits/index.html"><strong aria-hidden="true">2.13.</strong> Trait 解算（新式风格）</a></li><li><ol class="section"><li><a href="../traits/lowering-to-logic.html"><strong aria-hidden="true">2.13.1.</strong> 降低到逻辑层面</a></li><li><ol class="section"><li><a href="../traits/goals-and-clauses.html"><strong aria-hidden="true">2.13.1.1.</strong> 目标与已知</a></li><li><a href="../traits/associated-types.html"><strong aria-hidden="true">2.13.1.2.</strong> 相等性与惯量类型</a></li><li><a href="../traits/implied-bounds.html"><strong aria-hidden="true">2.13.1.3.</strong> 隐式界定</a></li><li><a href="../traits/regions.html"><strong aria-hidden="true">2.13.1.4.</strong> 生存期约束</a></li><li><a href="../traits/lowering-module.html"><strong aria-hidden="true">2.13.1.5.</strong> rustc 中的 lowering 模块</a></li><li><a href="../traits/lowering-rules.html"><strong aria-hidden="true">2.13.1.6.</strong> 降低规则</a></li><li><a href="../traits/wf.html"><strong aria-hidden="true">2.13.1.7.</strong> 良构性检查</a></li></ol></li><li><a href="../traits/canonical-queries.html"><strong aria-hidden="true">2.13.2.</strong> 典范查询</a></li><li><ol class="section"><li><a href="../traits/canonicalization.html"><strong aria-hidden="true">2.13.2.1.</strong> 典范化</a></li></ol></li><li><a href="../traits/slg.html"><strong aria-hidden="true">2.13.3.</strong> SLG 解算器</a></li><li><a href="../traits/chalk-overview.html"><strong aria-hidden="true">2.13.4.</strong> Chalk 概览</a></li><li><a href="../traits/bibliography.html"><strong aria-hidden="true">2.13.5.</strong> 文献</a></li></ol></li><li><a href="../type-checking.html"><strong aria-hidden="true">2.14.</strong> 类型检查</a></li><li><ol class="section"><li><a href="../method-lookup.html"><strong aria-hidden="true">2.14.1.</strong> 方法的查找</a></li><li><a href="../variance.html"><strong aria-hidden="true">2.14.2.</strong> 型变</a></li><li><a href="../existential-types.html"><strong aria-hidden="true">2.14.3.</strong> 存在类型</a></li></ol></li><li><a href="../mir/index.html"><strong aria-hidden="true">2.15.</strong> MIR（中层 IR）</a></li><li><ol class="section"><li><a href="../mir/construction.html"><strong aria-hidden="true">2.15.1.</strong> MIR 的构造</a></li><li><a href="../mir/visitor.html"><strong aria-hidden="true">2.15.2.</strong> MIR 访问器与遍历</a></li><li><a href="../mir/passes.html"><strong aria-hidden="true">2.15.3.</strong> MIR 趟：获取函数的 MIRn</a></li><li><a href="../mir/optimizations.html"><strong aria-hidden="true">2.15.4.</strong> MIR 优化</a></li><li><a href="../mir/debugging.html"><strong aria-hidden="true">2.15.5.</strong> 调试</a></li></ol></li><li><a href="../borrow_check.html"><strong aria-hidden="true">2.16.</strong> 借用检查器</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization.html"><strong aria-hidden="true">2.16.1.</strong> 跟踪转移和初始化</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization/move_paths.html"><strong aria-hidden="true">2.16.1.1.</strong> 转移路径</a></li></ol></li><li><a href="../borrow_check/type_check.html"><strong aria-hidden="true">2.16.2.</strong> MIR 类型检查器</a></li><li><a href="../borrow_check/region_inference.html"><strong aria-hidden="true">2.16.3.</strong> 生存域推导</a></li><li><a href="../borrow_check/two_phase_borrows.html" class="active"><strong aria-hidden="true">2.16.4.</strong> 两阶段借用</a></li></ol></li><li><a href="../const-eval.html"><strong aria-hidden="true">2.17.</strong> 常量求值</a></li><li><ol class="section"><li><a href="../miri.html"><strong aria-hidden="true">2.17.1.</strong> miri const 求值器</a></li></ol></li><li><a href="../param_env.html"><strong aria-hidden="true">2.18.</strong> 形参环境</a></li><li><a href="../codegen.html"><strong aria-hidden="true">2.19.</strong> 代码生成</a></li><li><ol class="section"><li><a href="../codegen/updating-llvm.html"><strong aria-hidden="true">2.19.1.</strong> 更新 LLVM</a></li><li><a href="../codegen/debugging.html"><strong aria-hidden="true">2.19.2.</strong> 调试 LLVM</a></li></ol></li><li><a href="../profile-guided-optimization.html"><strong aria-hidden="true">2.20.</strong> 性能剖析指导的优化</a></li><li class="spacer"></li></ol></li><li><a href="../appendix/stupid-stats.html">附录 A：傻瓜分析</a></li><li class="affix"><a href="../appendix/background.html">附录 B：背景材料</a></li><li class="affix"><a href="../appendix/glossary.html">附录 C：术语表</a></li><li class="affix"><a href="../appendix/code-index.html">附录 D：代码索引</a></li><li class="affix"><a href="../important-links.html"></a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rustc 开发指南</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#two-phase-borrows" id="two-phase-borrows">Two-phase borrows</a></h1>
+<p>Two-phase borrows are a more permissive version of mutable borrows that allow
+nested method calls such as <code>vec.push(vec.len())</code>. Such borrows first act as
+shared borrows in a &quot;reservation&quot; phase and can later be &quot;activated&quot; into a
+full mutable borrow.</p>
+<p>Only certain implicit mutable borrows can be two-phase, any <code>&amp;mut</code> or <code>ref mut</code>
+in the source code is never a two-phase borrow. The cases where we generate a
+two-phase borrow are:</p>
+<ol>
+<li>The autoref borrow when calling a method with a mutable reference receiver.</li>
+<li>A mutable reborrow in function arguments.</li>
+<li>The implicit mutable borrow in an overloaded compound assignment operator.</li>
+</ol>
+<p>To give some examples:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// In the source code
+
+// Case 1:
+let mut v = Vec::new();
+v.push(v.len());
+let r = &amp;mut Vec::new();
+r.push(r.len());
+
+// Case 2:
+std::mem::replace(r, vec![1, r.len()]);
+
+// Case 3:
+let mut x = std::num::Wrapping(2);
+x += x;
+#}</code></pre></pre>
+<p>Expanding these enough to show the two-phase borrows:</p>
+<pre><code class="language-rust ignore">// Case 1:
+let mut v = Vec::new();
+let temp1 = &amp;two_phase v;
+let temp2 = v.len();
+Vec::push(temp1, temp2);
+let r = &amp;mut Vec::new();
+let temp3 = &amp;two_phase *r;
+let temp4 = r.len();
+Vec::push(temp3, temp4);
+
+// Case 2:
+let temp5 = &amp;two_phase *r;
+let temp6 = vec![1, r.len()];
+std::mem::replace(temp5, temp6);
+
+// Case 3:
+let mut x = std::num::Wrapping(2);
+let temp7 = &amp;two_phase x;
+let temp8 = x;
+std::ops::AddAssign::add_assign(temp7, temp8);
+</code></pre>
+<p>Whether a borrow can be two-phase is tracked by a flag on the <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/adjustment/enum.AutoBorrow.html"><code>AutoBorrow</code></a>
+after type checking, which is then <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/hair/cx/expr/trait.ToBorrowKind.html#method.to_borrow_kind">converted</a> to a <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/mir/enum.BorrowKind.html"><code>BorrowKind</code></a> during MIR
+construction.</p>
+<p>Each two-phase borrow is assigned to a temporary that is only used once. As
+such we can define:</p>
+<ul>
+<li>The point where the temporary is assigned to is called the <em>reservation</em>
+point of the two-phase borrow.</li>
+<li>The point where the temporary is used, which is effectively always a
+function call, is called the <em>activation</em> point.</li>
+</ul>
+<p>The activation points are found using the <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/mir/visit/trait.Visitor.html#method.visit_local"><code>GatherBorrows</code></a> visitor. The
+<a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/borrow_check/borrow_set/struct.BorrowData.html"><code>BorrowData</code></a> then holds both the reservation and activation points for the
+borrow.</p>
+<h2><a class="header" href="#checking-two-phase-borrows" id="checking-two-phase-borrows">Checking two-phase borrows</a></h2>
+<p>Two-phase borrows are treated as if they were mutable borrows with the
+following exceptions:</p>
+<ol>
+<li>At every location in the MIR we <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/borrow_check/struct.MirBorrowckCtxt.html#method.check_activations">check</a> if any two-phase borrows are
+activated at this location. If a live two phase borrow is activated at a
+location, then we check that there are no borrows that conflict with the
+two-phase borrow.</li>
+<li>At the reservation point we error if there are conflicting live <em>mutable</em>
+borrows. And lint if there are any conflicting shared borrows.</li>
+<li>Between the reservation and the activation point, the two-phase borrow acts
+as a shared borrow. We determine (in <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/borrow_check/path_utils/fn.is_active.html"><code>is_active</code></a>) if we're at such a point
+by using the <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_data_structures/graph/dominators/struct.Dominators.html"><code>Dominators</code></a> for the MIR graph.</li>
+<li>After the activation point, the two-phase borrow acts as a mutable borrow.</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../borrow_check/region_inference.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../const-eval.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../borrow_check/region_inference.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../const-eval.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

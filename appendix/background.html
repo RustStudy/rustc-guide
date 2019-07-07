@@ -1,0 +1,387 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>附录 B：背景材料 - Rustc 开发指南</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rustc 开发指南">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../about-this-guide.html">关于本指南</a></li><li class="spacer"></li><li><a href="../part-1-intro.html"><strong aria-hidden="true">1.</strong> 第一部分：rustc 的构建、调试与贡献</a></li><li><ol class="section"><li><a href="../compiler-team.html"><strong aria-hidden="true">1.1.</strong> 关于编译器团队</a></li><li><a href="../how-to-build-and-run.html"><strong aria-hidden="true">1.2.</strong> 如何构建并运行编译器</a></li><li><ol class="section"><li><a href="../build-install-distribution-artifacts.html"><strong aria-hidden="true">1.2.1.</strong> 构建并安装发行版工件</a></li><li><a href="../compiler-documenting.html"><strong aria-hidden="true">1.2.2.</strong> 构建编译器文档</a></li></ol></li><li><a href="../tests/intro.html"><strong aria-hidden="true">1.3.</strong> 编译器测试框架</a></li><li><ol class="section"><li><a href="../tests/running.html"><strong aria-hidden="true">1.3.1.</strong> 运行测试</a></li><li><a href="../tests/adding.html"><strong aria-hidden="true">1.3.2.</strong> 添加新测试</a></li><li><a href="../compiletest.html"><strong aria-hidden="true">1.3.3.</strong> 使用 compiletest + 命令来控制测试执行</a></li></ol></li><li><a href="../walkthrough.html"><strong aria-hidden="true">1.4.</strong> 攻略：一次典型的贡献</a></li><li><a href="../implementing_new_features.html"><strong aria-hidden="true">1.5.</strong> 实现新特性</a></li><li><a href="../stabilization_guide.html"><strong aria-hidden="true">1.6.</strong> 稳定化特性</a></li><li><a href="../compiler-debugging.html"><strong aria-hidden="true">1.7.</strong> 调试编译器</a></li><li><a href="../profiling.html"><strong aria-hidden="true">1.8.</strong> 剖析编译器性能</a></li><li><ol class="section"><li><a href="../profiling/with_perf.html"><strong aria-hidden="true">1.8.1.</strong> 使用 linux perf 工具剖析</a></li></ol></li><li><a href="../conventions.html"><strong aria-hidden="true">1.9.</strong> 编码约定</a></li><li><a href="../crates-io.html"><strong aria-hidden="true">1.10.</strong> crates.io 依赖</a></li><li><a href="../diagnostics.html"><strong aria-hidden="true">1.11.</strong> 消除错误和其它诊断报告</a></li><li><ol class="section"><li><a href="../diagnostics/json-format.html"><strong aria-hidden="true">1.11.1.</strong> JSON 诊断报告格式</a></li></ol></li></ol></li><li><a href="../part-2-intro.html"><strong aria-hidden="true">2.</strong> 第二部分：rustc 的工作原理</a></li><li><ol class="section"><li><a href="../high-level-overview.html"><strong aria-hidden="true">2.1.</strong> 编译器源码概览</a></li><li><a href="../rustc-driver.html"><strong aria-hidden="true">2.2.</strong> rustc 驱动与接口</a></li><li><ol class="section"><li><a href="../rustdoc.html"><strong aria-hidden="true">2.2.1.</strong> rustdoc</a></li></ol></li><li><a href="../query.html"><strong aria-hidden="true">2.3.</strong> 查询：需求驱动的编译</a></li><li><ol class="section"><li><a href="../queries/query-evaluation-model-in-detail.html"><strong aria-hidden="true">2.3.1.</strong> 查询求值模型详解</a></li><li><a href="../queries/incremental-compilation.html"><strong aria-hidden="true">2.3.2.</strong> 增量编译</a></li><li><a href="../queries/incremental-compilation-in-detail.html"><strong aria-hidden="true">2.3.3.</strong> 增量编译详解</a></li><li><a href="../incrcomp-debugging.html"><strong aria-hidden="true">2.3.4.</strong> 调试与测试</a></li></ol></li><li><a href="../the-parser.html"><strong aria-hidden="true">2.4.</strong> 解析器</a></li><li><a href="../test-implementation.html"><strong aria-hidden="true">2.5.</strong> #[test] 实现</a></li><li><a href="../macro-expansion.html"><strong aria-hidden="true">2.6.</strong> 宏展开</a></li><li><a href="../name-resolution.html"><strong aria-hidden="true">2.7.</strong> 名字求解</a></li><li><a href="../hir.html"><strong aria-hidden="true">2.8.</strong> HIR（上层 IR）</a></li><li><ol class="section"><li><a href="../lowering.html"><strong aria-hidden="true">2.8.1.</strong> 将 AST 降低为 HIR</a></li><li><a href="../hir-debugging.html"><strong aria-hidden="true">2.8.2.</strong> 调试</a></li></ol></li><li><a href="../ty.html"><strong aria-hidden="true">2.9.</strong> ty 模块：类型的表示</a></li><li><a href="../kinds.html"><strong aria-hidden="true">2.10.</strong> 种类</a></li><li><a href="../type-inference.html"><strong aria-hidden="true">2.11.</strong> 类型推导</a></li><li><a href="../traits/resolution.html"><strong aria-hidden="true">2.12.</strong> Trait 解算（旧式风格）</a></li><li><ol class="section"><li><a href="../traits/hrtb.html"><strong aria-hidden="true">2.12.1.</strong> 高阶 trait 绑定</a></li><li><a href="../traits/caching.html"><strong aria-hidden="true">2.12.2.</strong> 缓存的细节</a></li><li><a href="../traits/specialization.html"><strong aria-hidden="true">2.12.3.</strong> 特化</a></li></ol></li><li><a href="../traits/index.html"><strong aria-hidden="true">2.13.</strong> Trait 解算（新式风格）</a></li><li><ol class="section"><li><a href="../traits/lowering-to-logic.html"><strong aria-hidden="true">2.13.1.</strong> 降低到逻辑层面</a></li><li><ol class="section"><li><a href="../traits/goals-and-clauses.html"><strong aria-hidden="true">2.13.1.1.</strong> 目标与已知</a></li><li><a href="../traits/associated-types.html"><strong aria-hidden="true">2.13.1.2.</strong> 相等性与惯量类型</a></li><li><a href="../traits/implied-bounds.html"><strong aria-hidden="true">2.13.1.3.</strong> 隐式界定</a></li><li><a href="../traits/regions.html"><strong aria-hidden="true">2.13.1.4.</strong> 生存期约束</a></li><li><a href="../traits/lowering-module.html"><strong aria-hidden="true">2.13.1.5.</strong> rustc 中的 lowering 模块</a></li><li><a href="../traits/lowering-rules.html"><strong aria-hidden="true">2.13.1.6.</strong> 降低规则</a></li><li><a href="../traits/wf.html"><strong aria-hidden="true">2.13.1.7.</strong> 良构性检查</a></li></ol></li><li><a href="../traits/canonical-queries.html"><strong aria-hidden="true">2.13.2.</strong> 典范查询</a></li><li><ol class="section"><li><a href="../traits/canonicalization.html"><strong aria-hidden="true">2.13.2.1.</strong> 典范化</a></li></ol></li><li><a href="../traits/slg.html"><strong aria-hidden="true">2.13.3.</strong> SLG 解算器</a></li><li><a href="../traits/chalk-overview.html"><strong aria-hidden="true">2.13.4.</strong> Chalk 概览</a></li><li><a href="../traits/bibliography.html"><strong aria-hidden="true">2.13.5.</strong> 文献</a></li></ol></li><li><a href="../type-checking.html"><strong aria-hidden="true">2.14.</strong> 类型检查</a></li><li><ol class="section"><li><a href="../method-lookup.html"><strong aria-hidden="true">2.14.1.</strong> 方法的查找</a></li><li><a href="../variance.html"><strong aria-hidden="true">2.14.2.</strong> 型变</a></li><li><a href="../existential-types.html"><strong aria-hidden="true">2.14.3.</strong> 存在类型</a></li></ol></li><li><a href="../mir/index.html"><strong aria-hidden="true">2.15.</strong> MIR（中层 IR）</a></li><li><ol class="section"><li><a href="../mir/construction.html"><strong aria-hidden="true">2.15.1.</strong> MIR 的构造</a></li><li><a href="../mir/visitor.html"><strong aria-hidden="true">2.15.2.</strong> MIR 访问器与遍历</a></li><li><a href="../mir/passes.html"><strong aria-hidden="true">2.15.3.</strong> MIR 趟：获取函数的 MIRn</a></li><li><a href="../mir/optimizations.html"><strong aria-hidden="true">2.15.4.</strong> MIR 优化</a></li><li><a href="../mir/debugging.html"><strong aria-hidden="true">2.15.5.</strong> 调试</a></li></ol></li><li><a href="../borrow_check.html"><strong aria-hidden="true">2.16.</strong> 借用检查器</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization.html"><strong aria-hidden="true">2.16.1.</strong> 跟踪转移和初始化</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization/move_paths.html"><strong aria-hidden="true">2.16.1.1.</strong> 转移路径</a></li></ol></li><li><a href="../borrow_check/type_check.html"><strong aria-hidden="true">2.16.2.</strong> MIR 类型检查器</a></li><li><a href="../borrow_check/region_inference.html"><strong aria-hidden="true">2.16.3.</strong> 生存域推导</a></li><li><a href="../borrow_check/two_phase_borrows.html"><strong aria-hidden="true">2.16.4.</strong> 两阶段借用</a></li></ol></li><li><a href="../const-eval.html"><strong aria-hidden="true">2.17.</strong> 常量求值</a></li><li><ol class="section"><li><a href="../miri.html"><strong aria-hidden="true">2.17.1.</strong> miri const 求值器</a></li></ol></li><li><a href="../param_env.html"><strong aria-hidden="true">2.18.</strong> 形参环境</a></li><li><a href="../codegen.html"><strong aria-hidden="true">2.19.</strong> 代码生成</a></li><li><ol class="section"><li><a href="../codegen/updating-llvm.html"><strong aria-hidden="true">2.19.1.</strong> 更新 LLVM</a></li><li><a href="../codegen/debugging.html"><strong aria-hidden="true">2.19.2.</strong> 调试 LLVM</a></li></ol></li><li><a href="../profile-guided-optimization.html"><strong aria-hidden="true">2.20.</strong> 性能剖析指导的优化</a></li><li class="spacer"></li></ol></li><li><a href="../appendix/stupid-stats.html">附录 A：傻瓜分析</a></li><li class="affix"><a href="../appendix/background.html" class="active">附录 B：背景材料</a></li><li class="affix"><a href="../appendix/glossary.html">附录 C：术语表</a></li><li class="affix"><a href="../appendix/code-index.html">附录 D：代码索引</a></li><li class="affix"><a href="../important-links.html"></a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rustc 开发指南</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+# Appendix B: Background topics
+-->
+<h1><a class="header" href="#附录-b背景话题" id="附录-b背景话题">附录 B：背景话题</a></h1>
+<!--
+This section covers a numbers of common compiler terms that arise in
+this guide. We try to give the general definition while providing some
+Rust-specific context.
+-->
+<p>本节涵盖了本指南中出现的常见编译器术语。我们会在某些特定于 Rust
+的上下文中给出这些术语的一般定义。</p>
+<p><a name="cfg"></a></p>
+<!--
+## What is a control-flow graph?
+-->
+<h2><a class="header" href="#什么是控制流图" id="什么是控制流图">什么是控制流图？</a></h2>
+<!--
+A control-flow graph is a common term from compilers. If you've ever
+used a flow-chart, then the concept of a control-flow graph will be
+pretty familiar to you. It's a representation of your program that
+exposes the underlying control flow in a very clear way.
+-->
+<p>控制流图（control-flow graph）是编译器中常见的术语。如果你曾使用过流程图，
+那么控制流图的概念对你来说会很熟悉。它是程序的一种表示方式，
+能够以非常清晰的方式展现底层控制流。</p>
+<!--
+A control-flow graph is structured as a set of **basic blocks**
+connected by edges. The key idea of a basic block is that it is a set
+of statements that execute "together" – that is, whenever you branch
+to a basic block, you start at the first statement and then execute
+all the remainder. Only at the end of the block is there the
+possibility of branching to more than one place (in MIR, we call that
+final statement the **terminator**):
+-->
+<p>控制流图由以边相连的一组<strong>基本块（basic block）<strong>构成。基本块的主要概念是
+一组「一起」执行的语句，也就是说，只要你的分支跳到了基本块，
+它就会从头到尾依次执行所有的语句。只有到基本块的最后才有可能分支到更多地方
+（在 MIR 中，我们将最后一条语句称作</strong>终止句（terminator）</strong>）：</p>
+<pre><code class="language-mir">bb0: {
+    statement0;
+    statement1;
+    statement2;
+    ...
+    terminator;
+}
+</code></pre>
+<!--
+Many expressions that you are used to in Rust compile down to multiple
+basic blocks. For example, consider an if statement:
+-->
+<p>你在 Rust 中使用的很多表达式都会编译成多个基本块。例如，考虑以下 if 语句：</p>
+<pre><code class="language-rust ignore">a = 1;
+if some_variable {
+    b = 1;
+} else {
+    c = 1;
+}
+d = 1;
+</code></pre>
+<!--
+This would compile into four basic blocks:
+-->
+<p>它会被编译成四个基本块</p>
+<pre><code class="language-mir">BB0: {
+    a = 1;
+    if some_variable { goto BB1 } else { goto BB2 }
+}
+
+BB1: {
+    b = 1;
+    goto BB3;
+}
+
+BB2: {
+    c = 1;
+    goto BB3;
+}
+
+BB3: {
+    d = 1;
+    ...;
+}
+</code></pre>
+<!--
+When using a control-flow graph, a loop simply appears as a cycle in
+the graph, and the `break` keyword translates into a path out of that
+cycle.
+-->
+<p>在使用控制流图时，循环会简单地作为一个图中的环路出现，而 <code>break</code>
+关键字则会被翻译成跳出此环路的一条路径。</p>
+<p><a name="dataflow"></a></p>
+<!--
+## What is a dataflow analysis?
+-->
+<h2><a class="header" href="#什么是数据流分析" id="什么是数据流分析">什么是数据流分析？</a></h2>
+<!--
+[*Static Program Analysis*](https://cs.au.dk/~amoeller/spa/) by Anders Møller
+and Michael I. Schwartzbach is an incredible resource!
+-->
+<p><a href="https://cs.au.dk/%7Eamoeller/spa/"><strong>静态程序分析（Static Program Analysis）</strong></a>，
+作者 Anders Møller 和 Michael I. Schwartzbach，它是一个绝佳的资源。</p>
+<p><em>to be written</em></p>
+<p><a name="quantified"></a></p>
+<!--
+## What is "universally quantified"? What about "existentially quantified"?
+-->
+<h2><a class="header" href="#什么是全称量化存在量化呢" id="什么是全称量化存在量化呢">什么是「全称量化」？「存在量化」呢？</a></h2>
+<p><em>to be written</em></p>
+<p><a name="variance"></a></p>
+<!--
+## What is co- and contra-variance?
+-->
+<h2><a class="header" href="#什么是协变和逆变" id="什么是协变和逆变">什么是协变和逆变？</a></h2>
+<!--
+Check out the subtyping chapter from the
+[Rust Nomicon](https://doc.rust-lang.org/nomicon/subtyping.html).
+-->
+<p>详见 <a href="https://doc.rust-lang.org/nomicon/subtyping.html">Rust 秘典</a>
+中的子定型（Subtyping）一章。</p>
+<!--
+See the [variance](../variance.html) chapter of this guide for more info on how
+the type checker handles variance.
+-->
+<p>关于类型检查器如何处理型变的更多信息见本指南的
+<a href="../variance.html">型变（variance）</a>一章。</p>
+<p><a name="free-vs-bound"></a></p>
+<!--
+## What is a "free region" or a "free variable"? What about "bound region"?
+-->
+<h2><a class="header" href="#什么是自由生存域和自由变量约束生存域呢" id="什么是自由生存域和自由变量约束生存域呢">什么是「自由生存域」和「自由变量」？「约束生存域」呢？</a></h2>
+<!--
+Let's describe the concepts of free vs bound in terms of program
+variables, since that's the thing we're most familiar with.
+
+- Consider this expression, which creates a closure: `|a,
+  b| a + b`. Here, the `a` and `b` in `a + b` refer to the arguments
+  that the closure will be given when it is called. We say that the
+  `a` and `b` there are **bound** to the closure, and that the closure
+  signature `|a, b|` is a **binder** for the names `a` and `b`
+  (because any references to `a` or `b` within refer to the variables
+  that it introduces).
+- Consider this expression: `a + b`. In this expression, `a` and `b`
+  refer to local variables that are defined *outside* of the
+  expression. We say that those variables **appear free** in the
+  expression (i.e., they are **free**, not **bound** (tied up)).
+-->
+<p>我们来描述一下程序变量的自由和约束的概念，因为它们是我们最熟悉的概念。</p>
+<ul>
+<li>
+<p>考虑此表达式，它创建了一个闭包：<code>|a, b| a + b</code>。在这里，<code>a + b</code> 中的 <code>a</code>
+和 <code>b</code> 指代该闭包被调用会时传入的参数。我们称 <code>a</code> 和 <code>b</code> 在该闭包中是
+<strong>被约束（bound）<strong>的，而闭包签名 <code>|a, b|</code> 是名字 <code>a</code> 和 <code>b</code> 的</strong>约束位（binder）</strong>
+（因为对 <code>a</code> 或 <code>b</code> 的任何引用都是指代它引入的变量）。</p>
+</li>
+<li>
+<p>考虑此表达式 <code>a + b</code>。在该表达式中，<code>a</code> 和 <code>b</code> 均指代定义在该表达式<strong>之外</strong>
+的局部变量。我们称这些变量在该表达式中<strong>自由出现（appear free）</strong>
+（即它们是**自由（free）<strong>的，而非</strong>被约束（bound）**的（被束缚的））。</p>
+</li>
+</ul>
+<!--
+So there you have it: a variable "appears free" in some
+expression/statement/whatever if it refers to something defined
+outside of that expressions/statement/whatever. Equivalently, we can
+then refer to the "free variables" of an expression – which is just
+the set of variables that "appear free".
+-->
+<p>所以现在你理解了：在某些「表达式、语句、还是别的什么」中的变量，
+如果指代的是定义在该「表达式、语句、还是别的什么」之外的东西，那么它们就是
+「自由出现」的。我们可以等价地称之为表达式中的「自由变量」，
+毕竟它们就是一组「自由出现」的变量而已。</p>
+<!--
+So what does this have to do with regions? Well, we can apply the
+analogous concept to type and regions. For example, in the type `&'a
+u32`, `'a` appears free.  But in the type `for<'a> fn(&'a u32)`, it
+does not.
+-->
+<p>那么，它们与生存域（region）有什么关系呢？我们可以将类似的概念应用到类型和生存域上来。
+例如，在类型 <code>&amp;'a u32</code> 中，<code>'a</code> 是自由出现的。但在类型 <code>for&lt;'a&gt; fn(&amp;'a u32)</code> 中则不是。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../appendix/stupid-stats.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../appendix/glossary.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../appendix/stupid-stats.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../appendix/glossary.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>附录 C：术语表 - Rustc 开发指南</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rustc 开发指南">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../about-this-guide.html">关于本指南</a></li><li class="spacer"></li><li><a href="../part-1-intro.html"><strong aria-hidden="true">1.</strong> 第一部分：rustc 的构建、调试与贡献</a></li><li><ol class="section"><li><a href="../compiler-team.html"><strong aria-hidden="true">1.1.</strong> 关于编译器团队</a></li><li><a href="../how-to-build-and-run.html"><strong aria-hidden="true">1.2.</strong> 如何构建并运行编译器</a></li><li><ol class="section"><li><a href="../build-install-distribution-artifacts.html"><strong aria-hidden="true">1.2.1.</strong> 构建并安装发行版工件</a></li><li><a href="../compiler-documenting.html"><strong aria-hidden="true">1.2.2.</strong> 构建编译器文档</a></li></ol></li><li><a href="../tests/intro.html"><strong aria-hidden="true">1.3.</strong> 编译器测试框架</a></li><li><ol class="section"><li><a href="../tests/running.html"><strong aria-hidden="true">1.3.1.</strong> 运行测试</a></li><li><a href="../tests/adding.html"><strong aria-hidden="true">1.3.2.</strong> 添加新测试</a></li><li><a href="../compiletest.html"><strong aria-hidden="true">1.3.3.</strong> 使用 compiletest + 命令来控制测试执行</a></li></ol></li><li><a href="../walkthrough.html"><strong aria-hidden="true">1.4.</strong> 攻略：一次典型的贡献</a></li><li><a href="../implementing_new_features.html"><strong aria-hidden="true">1.5.</strong> 实现新特性</a></li><li><a href="../stabilization_guide.html"><strong aria-hidden="true">1.6.</strong> 稳定化特性</a></li><li><a href="../compiler-debugging.html"><strong aria-hidden="true">1.7.</strong> 调试编译器</a></li><li><a href="../profiling.html"><strong aria-hidden="true">1.8.</strong> 剖析编译器性能</a></li><li><ol class="section"><li><a href="../profiling/with_perf.html"><strong aria-hidden="true">1.8.1.</strong> 使用 linux perf 工具剖析</a></li></ol></li><li><a href="../conventions.html"><strong aria-hidden="true">1.9.</strong> 编码约定</a></li><li><a href="../crates-io.html"><strong aria-hidden="true">1.10.</strong> crates.io 依赖</a></li><li><a href="../diagnostics.html"><strong aria-hidden="true">1.11.</strong> 消除错误和其它诊断报告</a></li><li><ol class="section"><li><a href="../diagnostics/json-format.html"><strong aria-hidden="true">1.11.1.</strong> JSON 诊断报告格式</a></li></ol></li></ol></li><li><a href="../part-2-intro.html"><strong aria-hidden="true">2.</strong> 第二部分：rustc 的工作原理</a></li><li><ol class="section"><li><a href="../high-level-overview.html"><strong aria-hidden="true">2.1.</strong> 编译器源码概览</a></li><li><a href="../rustc-driver.html"><strong aria-hidden="true">2.2.</strong> rustc 驱动与接口</a></li><li><ol class="section"><li><a href="../rustdoc.html"><strong aria-hidden="true">2.2.1.</strong> rustdoc</a></li></ol></li><li><a href="../query.html"><strong aria-hidden="true">2.3.</strong> 查询：需求驱动的编译</a></li><li><ol class="section"><li><a href="../queries/query-evaluation-model-in-detail.html"><strong aria-hidden="true">2.3.1.</strong> 查询求值模型详解</a></li><li><a href="../queries/incremental-compilation.html"><strong aria-hidden="true">2.3.2.</strong> 增量编译</a></li><li><a href="../queries/incremental-compilation-in-detail.html"><strong aria-hidden="true">2.3.3.</strong> 增量编译详解</a></li><li><a href="../incrcomp-debugging.html"><strong aria-hidden="true">2.3.4.</strong> 调试与测试</a></li></ol></li><li><a href="../the-parser.html"><strong aria-hidden="true">2.4.</strong> 解析器</a></li><li><a href="../test-implementation.html"><strong aria-hidden="true">2.5.</strong> #[test] 实现</a></li><li><a href="../macro-expansion.html"><strong aria-hidden="true">2.6.</strong> 宏展开</a></li><li><a href="../name-resolution.html"><strong aria-hidden="true">2.7.</strong> 名字求解</a></li><li><a href="../hir.html"><strong aria-hidden="true">2.8.</strong> HIR（上层 IR）</a></li><li><ol class="section"><li><a href="../lowering.html"><strong aria-hidden="true">2.8.1.</strong> 将 AST 降低为 HIR</a></li><li><a href="../hir-debugging.html"><strong aria-hidden="true">2.8.2.</strong> 调试</a></li></ol></li><li><a href="../ty.html"><strong aria-hidden="true">2.9.</strong> ty 模块：类型的表示</a></li><li><a href="../kinds.html"><strong aria-hidden="true">2.10.</strong> 种类</a></li><li><a href="../type-inference.html"><strong aria-hidden="true">2.11.</strong> 类型推导</a></li><li><a href="../traits/resolution.html"><strong aria-hidden="true">2.12.</strong> Trait 解算（旧式风格）</a></li><li><ol class="section"><li><a href="../traits/hrtb.html"><strong aria-hidden="true">2.12.1.</strong> 高阶 trait 绑定</a></li><li><a href="../traits/caching.html"><strong aria-hidden="true">2.12.2.</strong> 缓存的细节</a></li><li><a href="../traits/specialization.html"><strong aria-hidden="true">2.12.3.</strong> 特化</a></li></ol></li><li><a href="../traits/index.html"><strong aria-hidden="true">2.13.</strong> Trait 解算（新式风格）</a></li><li><ol class="section"><li><a href="../traits/lowering-to-logic.html"><strong aria-hidden="true">2.13.1.</strong> 降低到逻辑层面</a></li><li><ol class="section"><li><a href="../traits/goals-and-clauses.html"><strong aria-hidden="true">2.13.1.1.</strong> 目标与已知</a></li><li><a href="../traits/associated-types.html"><strong aria-hidden="true">2.13.1.2.</strong> 相等性与惯量类型</a></li><li><a href="../traits/implied-bounds.html"><strong aria-hidden="true">2.13.1.3.</strong> 隐式界定</a></li><li><a href="../traits/regions.html"><strong aria-hidden="true">2.13.1.4.</strong> 生存期约束</a></li><li><a href="../traits/lowering-module.html"><strong aria-hidden="true">2.13.1.5.</strong> rustc 中的 lowering 模块</a></li><li><a href="../traits/lowering-rules.html"><strong aria-hidden="true">2.13.1.6.</strong> 降低规则</a></li><li><a href="../traits/wf.html"><strong aria-hidden="true">2.13.1.7.</strong> 良构性检查</a></li></ol></li><li><a href="../traits/canonical-queries.html"><strong aria-hidden="true">2.13.2.</strong> 典范查询</a></li><li><ol class="section"><li><a href="../traits/canonicalization.html"><strong aria-hidden="true">2.13.2.1.</strong> 典范化</a></li></ol></li><li><a href="../traits/slg.html"><strong aria-hidden="true">2.13.3.</strong> SLG 解算器</a></li><li><a href="../traits/chalk-overview.html"><strong aria-hidden="true">2.13.4.</strong> Chalk 概览</a></li><li><a href="../traits/bibliography.html"><strong aria-hidden="true">2.13.5.</strong> 文献</a></li></ol></li><li><a href="../type-checking.html"><strong aria-hidden="true">2.14.</strong> 类型检查</a></li><li><ol class="section"><li><a href="../method-lookup.html"><strong aria-hidden="true">2.14.1.</strong> 方法的查找</a></li><li><a href="../variance.html"><strong aria-hidden="true">2.14.2.</strong> 型变</a></li><li><a href="../existential-types.html"><strong aria-hidden="true">2.14.3.</strong> 存在类型</a></li></ol></li><li><a href="../mir/index.html"><strong aria-hidden="true">2.15.</strong> MIR（中层 IR）</a></li><li><ol class="section"><li><a href="../mir/construction.html"><strong aria-hidden="true">2.15.1.</strong> MIR 的构造</a></li><li><a href="../mir/visitor.html"><strong aria-hidden="true">2.15.2.</strong> MIR 访问器与遍历</a></li><li><a href="../mir/passes.html"><strong aria-hidden="true">2.15.3.</strong> MIR 趟：获取函数的 MIRn</a></li><li><a href="../mir/optimizations.html"><strong aria-hidden="true">2.15.4.</strong> MIR 优化</a></li><li><a href="../mir/debugging.html"><strong aria-hidden="true">2.15.5.</strong> 调试</a></li></ol></li><li><a href="../borrow_check.html"><strong aria-hidden="true">2.16.</strong> 借用检查器</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization.html"><strong aria-hidden="true">2.16.1.</strong> 跟踪转移和初始化</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization/move_paths.html"><strong aria-hidden="true">2.16.1.1.</strong> 转移路径</a></li></ol></li><li><a href="../borrow_check/type_check.html"><strong aria-hidden="true">2.16.2.</strong> MIR 类型检查器</a></li><li><a href="../borrow_check/region_inference.html"><strong aria-hidden="true">2.16.3.</strong> 生存域推导</a></li><li><a href="../borrow_check/two_phase_borrows.html"><strong aria-hidden="true">2.16.4.</strong> 两阶段借用</a></li></ol></li><li><a href="../const-eval.html"><strong aria-hidden="true">2.17.</strong> 常量求值</a></li><li><ol class="section"><li><a href="../miri.html"><strong aria-hidden="true">2.17.1.</strong> miri const 求值器</a></li></ol></li><li><a href="../param_env.html"><strong aria-hidden="true">2.18.</strong> 形参环境</a></li><li><a href="../codegen.html"><strong aria-hidden="true">2.19.</strong> 代码生成</a></li><li><ol class="section"><li><a href="../codegen/updating-llvm.html"><strong aria-hidden="true">2.19.1.</strong> 更新 LLVM</a></li><li><a href="../codegen/debugging.html"><strong aria-hidden="true">2.19.2.</strong> 调试 LLVM</a></li></ol></li><li><a href="../profile-guided-optimization.html"><strong aria-hidden="true">2.20.</strong> 性能剖析指导的优化</a></li><li class="spacer"></li></ol></li><li><a href="../appendix/stupid-stats.html">附录 A：傻瓜分析</a></li><li class="affix"><a href="../appendix/background.html">附录 B：背景材料</a></li><li class="affix"><a href="../appendix/glossary.html" class="active">附录 C：术语表</a></li><li class="affix"><a href="../appendix/code-index.html">附录 D：代码索引</a></li><li class="affix"><a href="../important-links.html"></a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rustc 开发指南</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+# Appendix C: Glossary
+-->
+<h1><a class="header" href="#附录-c术语表" id="附录-c术语表">附录 C：术语表</a></h1>
+<!--
+The compiler uses a number of...idiosyncratic abbreviations and things. This
+glossary attempts to list them and give you a few pointers for understanding
+them better.
+-->
+<p>编译器中使用了大量...怪异的缩写和词汇。本术语表旨在列出它们并提供一些解释和指引，
+以便您更好地理解它们。</p>
+<table><thead><tr><th>中文</th><th>术语</th><th>含义</th></tr></thead><tbody>
+<tr><td>AST</td><td>AST</td><td>syntax crate 产生的抽象语法树（Abstract Syntax Tree），它非常严格地反映了用户使用的语法。</td></tr>
+<tr><td>约束位</td><td>binder</td><td>「约束位」是变量和类型声明的位置。例如，<code>&lt;T&gt;</code> 是泛型形参 <code>T</code> 在 <code>fn foo&lt;T&gt;(..)</code> 中的约束位，而 |<code>a</code>|<code> ...</code> 是形参 <code>a</code> 的约束位。详见<a href="./background.html#free-vs-bound">背景材料</a>。</td></tr>
+<tr><td>约束变量</td><td>bound variable</td><td>「约束变量」是在表达式/项中声明的变量。例如，变量 <code>a</code> 就是闭包表达式 |<code>a</code>|<code> a * 2</code> 中的约束变量。详见<a href="./background.html#free-vs-bound">背景材料</a>。</td></tr>
+<tr><td>codegen</td><td>codegen</td><td>将 MIR 翻译成 LLVM IR 的代码。</td></tr>
+<tr><td>codegen 单元</td><td>codegen unit</td><td>在产生 LLVM IR 时，我们会将 Rust 代码分成几组 codegen 单元。这些单元中的每一个都由 LLVM 独立处理以实现并行性。它们也是增量重用的单位。</td></tr>
+<tr><td>完备性</td><td>completeness</td><td>完备性是类型论中的技术术语。完备性表示每个类型安全的程序都能通过类型检查。兼顾可靠性（Soundness）和完备性是非常困难的，通常可靠性更加重要（见「可靠性」）。</td></tr>
+<tr><td>控制流图</td><td>control-flow graph</td><td>程序控制流的一种表示方法。详见<a href="./background.html#cfg">背景材料</a>。</td></tr>
+<tr><td>CTFE</td><td>CTFE</td><td>即编译期函数求值（Compile-Time Function Evaluation）。这是编译器在编译期求值 <code>const fn</code> 的能力。它是编译器常量求值系统的一部分（<a href="../const-eval.html">详情</a>）。</td></tr>
+<tr><td>cx</td><td>cx</td><td>我们倾向于用「cx」作为上下文（context）的简写。另见 <code>tcx</code>、<code>infcx</code> 等。</td></tr>
+<tr><td>DAG</td><td>DAG</td><td>即有向无环图（directed acyclic graph），在编译时用于跟踪查询之间的依赖关系（<a href="../queries/incremental-compilation.html">详情</a>）。</td></tr>
+<tr><td>数据流分析</td><td>data-flow analysis</td><td>静态分析可用来确定程序控制流中每个节点的属性是否正确。详见<a href="./background.html#dataflow">背景材料</a>。</td></tr>
+<tr><td>DefId</td><td>DefId</td><td>一个标识定义的索引（见 <code>librustc/hir/def_id.rs</code>）。用于唯一地标识一个 <code>DefPath</code>。</td></tr>
+<tr><td>双指针</td><td>Double pointer</td><td>带有附加元数据的指针。详见「胖指针」。</td></tr>
+<tr><td>drop glue<sup class="footnote-reference"><a href="#1">1</a></sup></td><td>drop glue</td><td>（内部）编译器生成的指令，用于操纵对数据类型调用析构器（<code>Drop</code>）。</td></tr>
+<tr><td>DST</td><td>DST</td><td>动态大小的类型（Dynamically-Sized Type）。编译器无法静态地获知该类型在内存中的大小（例如 <code>str</code> 或 <code>[u8]</code>）。这种类型并未实现 <code>Sized</code> 且无法在栈上分配。它们只能作为结构体中的最后一个字段，且只能通过指针来使用（如 <code>&amp;str</code> 或 <code>&amp;[u8]</code>）。</td></tr>
+<tr><td>先界定的生命周期</td><td>early-bound lifetime</td><td>生存域在定义的位置被代换的生命周期。在元项的 <code>Generics</code> 中界定并通过 <code>Substs</code> 来代换。与<strong>后界定生命周期</strong>相对（<a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/enum.RegionKind.html#bound-regions">详情</a>）。</td></tr>
+<tr><td>空类型</td><td>empty type</td><td>见「不可居留类型」</td></tr>
+<tr><td>胖指针</td><td>Fat pointer</td><td>一种两个字宽的指针，它保存了某个值的地址，以及使用该值所需的额外的信息。Rust 包含两种「胖指针」，分别是切片的引用和特质对象。切片的引用保存了切片的起始地址和长度。特质对象保存了一个值的地址和一个与该值对应的，指向该特质的实现的指针。「胖指针」也被称为「宽指针」或「双指针」。</td></tr>
+<tr><td>自由变量</td><td>free variable</td><td>「自由变量」即不在表达式或项中约束的变量。详见<a href="./background.html#free-vs-bound">背景材料</a>。</td></tr>
+<tr><td>'gcx</td><td>'gcx</td><td>即全域生命周期（<a href="../ty.html">详情</a>）。</td></tr>
+<tr><td>泛型（复数）</td><td>generics</td><td>即一组在类型或元项上定义的泛型形参。</td></tr>
+<tr><td>HIR</td><td>HIR</td><td>上层 IR，将 AST 降级并脱糖（desugar）后产生（<a href="../hir.html">详情</a>）。</td></tr>
+<tr><td>HirId</td><td>HirId</td><td>由一个 def-id 与一个「定义内偏移（intra-definition offset）」结合产生，用于在 HIR 中标识一个特定的节点。</td></tr>
+<tr><td>HIR 映射</td><td>HIR Map</td><td>HIR 映射，通过 tcx.hir 访问，能够让你在 HIR 中快速导航，并在多种标识符之间互相转换。</td></tr>
+<tr><td>ICE</td><td>ICE</td><td>内部编译器错误（internal compiler error），在编译器崩溃时产生。</td></tr>
+<tr><td>ICH</td><td>ICH</td><td>增量编译散列值（incremental compilation hash）。ICH 作为 HIR 或 crate 元数据之类的指纹，用于检查它们是否被修改。它在增量编译时可用于检测 crate 的某部分是否被修改，确定是否应重新编译。</td></tr>
+<tr><td>推导变量</td><td>inference variable</td><td>「推导变量」是一种特殊的类型/生存域，在进行类型或生存域推导时，它用来表示尝试推导的东西。类比于代数中的 x。例如，如果我们尝试推导程序中某个变量的类型，那么就要创建一个推导变量来表示该未知的类型。</td></tr>
+<tr><td>infcx</td><td>infcx</td><td>推导上下文（见 <code>librustc/infer</code>）</td></tr>
+<tr><td>存留</td><td>intern</td><td>「存留」指先将确定且常用的常量数据（如字符串）存储下来，然后用标识符（例如一个 <code>Symbol</code>）来引用它，而非直接使用数据本身，以此节省内存。</td></tr>
+<tr><td>IR</td><td>IR</td><td>中间表示（Intermediate Representation）。编译器中一种通用的形式。在编译过程中，代码会从原始源码（ASCII 文本）转换为多种 IR。在 Rust 中，它们主要是 HIR、MIR 和 LLVM IR。每种 IR 都适用于某种计算集合。例如，MIR 适用于借用检查器，而 LLVM IR 则适用于 codegen，因为 LLVM 可以接受它。</td></tr>
+<tr><td>IRLO</td><td>IRLO</td><td><code>IRLO</code> 或 <code>irlo</code> 有时用作 <a href="https://internals.rust-lang.org">internals.rust-lang.org</a> 的缩写。</td></tr>
+<tr><td>元项</td><td>item</td><td>语言中的一种「定义」，例如 static、const、use 语句、模块、结构体等等。具体来说，它对应与 <code>Item</code> 类型。</td></tr>
+<tr><td>语言元项</td><td>lang item</td><td>表示语言本身固有概念的元项，其中包括：特殊的内建特质如 <code>Sync</code> 和 <code>Send</code>；表示操作的特质如 <code>Add</code>，由编译器调用的函数（<a href="https://doc.rust-lang.org/1.9.0/book/lang-items.html">详情</a>）。</td></tr>
+<tr><td>后界定的生命周期</td><td>late-bound lifetime</td><td>生存域在调用的位置被代换的生命周期。在 HRTB 中界定并通过编译器中特定的函数来代换，例如 <code>liberate_late_bound_regions</code>。与<strong>先界定生命周期</strong>相对（<a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/enum.RegionKind.html#bound-regions">详情</a>）。</td></tr>
+<tr><td>局部 crate</td><td>local crate</td><td>当前正在编译的 crate。</td></tr>
+<tr><td>LTO</td><td>LTO</td><td>链接期优化（Link-Time Optimizations）。一组由 LLVM 提供的优化，它只在最后链接二进制文件时执行。其中包括移除最终程序中不会被使用的函数等多种优化。<em>ThinLTO</em> 是 LTO 的一种变体，旨在提高可扩展性和效率，但可能会牺牲一些优化。您也可以阅读 Rust 源码库中关于「FatLTO」的 Issue。「FatLTO」是为非 Thin LTO 的别称。LLVM 文档：<a href="https://llvm.org/docs/LinkTimeOptimization.html">lto</a> 和 <a href="https://clang.llvm.org/docs/ThinLTO.html">thinlto</a>。</td></tr>
+<tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://llvm.org/">LLVM</a></td><td>（其实不算缩写 :-P）一个开源的编译器后端。它接受 LLVM IR 并输出原生二进制程序。很多编程语言（如 Rust）都可以实现一个输出 LLVM IR 的编译器前端，并用 LLVM 将该语言编译到所有 LLVM 支持的平台上。</td></tr>
+<tr><td>记忆化</td><td>memoize</td><td>记忆化是一种将计算结果（如纯函数调用的计算结果）存储起来以避免重复计算的方法。这是一种典型的执行速度和内存使用间的权衡。</td></tr>
+<tr><td>MIR</td><td>MIR</td><td>中层 IR，在通过 borrowck 和 codegen 进行类型检查后产生（<a href="../mir/index.html">详情</a>）。</td></tr>
+<tr><td>miri</td><td>miri</td><td>一个 MIR 解释器，用于常量求值（<a href="../miri.html">详情</a>）</td></tr>
+<tr><td>正规化</td><td>normalize</td><td>常用术语，表示转换为更典范的形式，不过在 rustc 中一般指<a href="../traits/associated-types.html#normalize">关联类型的正规化</a>。</td></tr>
+<tr><td>新类型</td><td>newtype</td><td>「新类型」是对其它类型的包装（例如，<code>struct Foo(T)</code> 就是 <code>T</code> 的「新类型」）。在 Rust 中它通常用于为索引提供一种更强的类型。</td></tr>
+<tr><td>NLL</td><td>NLL</td><td><a href="../borrow_check/region_inference.html">非词法生命周期（non-lexical lifetimes）</a>，Rust 借用系统的一个扩展，使其基于控制流图。</td></tr>
+<tr><td>node-id 或 NodeId</td><td>node-id or NodeId</td><td>用于在 AST 或 HIR 中标识特定节点的索引，之后会被逐步淘汰并以 <code>HirId</code> 代之。</td></tr>
+<tr><td>（证明）义务</td><td>obligation</td><td>必须被特质系统证明的东西（<a href="../traits/resolution.html">详情</a>）。</td></tr>
+<tr><td>投影</td><td>projection</td><td>常用术语，表示「相对路径」，例如 <code>x.f</code> 是一种「字段投影」，而 <code>T::Item</code> 是一种「<a href="../traits/goals-and-clauses.html#trait-ref">关联类型投影</a>」。</td></tr>
+<tr><td>被提升常量</td><td>promoted constants</td><td>从函数中提取并提升到静态作用域的常量。更多详情见<a href="../mir/index.html#promoted">此节</a>。</td></tr>
+<tr><td>提供者</td><td>provider</td><td>用于执行查询的函数（<a href="../query.html">详情</a>）。</td></tr>
+<tr><td>量化</td><td>quantified</td><td>在数学和逻辑学中，存在量化和全称量化用于提出像「是否存在类型 T 使其为真？」或「对于所有的类型 T 它是否都为真？」这样的问题。详见<a href="./background.html#quantified">背景材料</a>。</td></tr>
+<tr><td>查询</td><td>query</td><td>在编译器可能存在的子计算过程（<a href="../query.html">详情</a>）。</td></tr>
+<tr><td>生存区</td><td>region</td><td>生命周期的另一个术语，通常在书面用于或借用检查器中出现。</td></tr>
+<tr><td>rib<sup class="footnote-reference"><a href="#2">2</a></sup></td><td>rib</td><td>名字求解器中的一种数据结构，用于跟踪多个名字所处的同一作用域（<a href="../name-resolution.html">详情</a>）。</td></tr>
+<tr><td>sess</td><td>sess</td><td>编译器会话（session），用于存储整个编译期间使用的全局数据。</td></tr>
+<tr><td>副表</td><td>side tables</td><td>由于 AST 和 HIR 一旦创建即不可变，因此我们通常以散列表的形式保存关于它们的额外的信息，并以特定节点的 id 来索引。</td></tr>
+<tr><td>符文</td><td>sigil</td><td>类似于关键字，但完全由非字母或数字的标记组成。例如，<code>&amp;</code> 是一个表示引用的符文。</td></tr>
+<tr><td>占位符</td><td>placeholder</td><td><strong>注意：skolemization 已被 placeholder 取代。</strong> 一种处理「for-all」类型（例如 <code>for&lt;'a&gt; fn(&amp;'a u32)</code>）的子定型（subtyping）以及解决高阶特质界定（HRTB，higher-ranked trait bounds，例如 <code>for&lt;'a&gt; T: Trait&lt;'a&gt;</code>）的方式。详见<a href="../borrow_check/region_inference.html#placeholders-and-universes">占位符与全域</a>一节。</td></tr>
+<tr><td>可靠性</td><td>soundness</td><td>可靠性是类型论中的技术术语。大致来说，如果一个类型系统是可靠的，且一个程序可通过类型检查，那么它就是类型安全的。例如，在 Safe Rust 中，我们无法将一个值强制赋予一个类型不匹配的变量（见「完备性」）。</td></tr>
+<tr><td>（代码）区段</td><td>span</td><td>用户源码中的位置，主要用于错误报告。它是个形如「文件名/行/列」的元组，保存了起点/终点，也用于跟踪宏展开和编译脱糖（desugar）。所有这些都被打包成几个字节（实际上，它只是个表的索引）。更多信息见 Span 数据类型。</td></tr>
+<tr><td>substs</td><td>substs</td><td>对给定泛型类型或元项的代换（例如 <code>HashMap&lt;i32, u32&gt;</code> 中的 <code>i32</code> 和 <code>u32</code>）。</td></tr>
+<tr><td>tcx</td><td>tcx</td><td>即类型上下文（typing context），编译器的主要数据结构（<a href="../ty.html">详情</a>）。</td></tr>
+<tr><td>'tcx</td><td>'tcx</td><td>当前正在活动的推导上下文的生命周期（<a href="../ty.html">详情</a>）。</td></tr>
+<tr><td>特质引用</td><td>trait reference</td><td>带有合适的输入类型/生命周期集合的特质的名字（<a href="../traits/goals-and-clauses.html#trait-ref">详情</a>）。</td></tr>
+<tr><td>（词法）标记</td><td>token</td><td>语法解析的最小单元。词法标记是分词后的产物（<a href="../the-parser.html">详情</a>）。</td></tr>
+<tr><td><a href="https://llvm.org/docs/LangRef.html#thread-local-storage-models">TLS</a></td><td><a href="https://llvm.org/docs/LangRef.html#thread-local-storage-models">TLS</a></td><td>线程局部的存储（Thread-Local Storage）。定义的变量在每个线程中都有各自的一份副本（而非所有线程共享一份副本）。它会与 LLVM 有一些交互。不是所有平台都支持 TLS。</td></tr>
+<tr><td>trans</td><td>trans</td><td>将 MIR 翻译为 LLVM IR 的代码。重命名为 codegen。</td></tr>
+<tr><td>特质引用</td><td>trait reference</td><td>特质及其类型形参的值（<a href="../ty.html">详情</a>）。</td></tr>
+<tr><td>ty</td><td>ty</td><td>类型（type）的内部表示（<a href="../ty.html">详情</a>）。</td></tr>
+<tr><td>UFCS</td><td>UFCS</td><td>全域函数调用（Universal Function Call Syntax）。一种无歧义的调用方法的语法（<a href="../type-checking.html">详情</a>）。</td></tr>
+<tr><td>不可居留类型</td><td>uninhabited type</td><td>一种 <em>无值</em> 的类型。它与 ZST 不同，ZST 有刚好一个值。不可居留类型的一个例子是 <code>enum Foo {}</code>，它没有任何变体，因此无法被创建。编译器会将不可居留类型的的代码视作死代码，因此没有这样的值可被处理。<code>!</code>（即 never 类型）是一个不可居留类型。不可居留类型也叫做「空类型」。</td></tr>
+<tr><td>upvar</td><td>upvar</td><td>由闭包外部的闭包捕获的变量。</td></tr>
+<tr><td>型变</td><td>variance</td><td>形变决定了泛型形参/生命周期形参的改变如何影响其子定型；例如，若 <code>T</code> 是 <code>U</code> 的子类型，则 <code>Vec&lt;T&gt;</code> 是 <code>Vec&lt;U&gt;</code> 的子类型，因为 <code>Vec</code> 对其泛型形参是 <strong>协变（covariant）</strong> 的。更一般的解释见<a href="./background.html#variance">背景材料</a>。<a href="../variance.html">型变</a>一章阐述了类型检查是如何处理型变的。</td></tr>
+<tr><td>宽指针</td><td>Wide pointer</td><td>带有附加数据的指针。详见「胖指针」。</td></tr>
+<tr><td>ZST</td><td>ZST</td><td>零大小类型（Zero-Sized Type）。值的大小为 0 字节的类型。由于 <code>2^0 = 1</code>，因此这种类型只能有刚好一个值。例如，<code>()</code>（单元类型）就是一个 ZST。<code>struct Foo;</code> 也是一个 ZST。编程器可对 ZST 做出良好的优化。</td></tr>
+</tbody></table>
+<h2><a class="header" href="#译注" id="译注">译注：</a></h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>这里用了个双关。<code>Drop</code> 即 Rust 中的析构器 trait，用 <code>drop()</code> 方法来清理掉脱离作用域的值；
+glue 即胶水代码，用来粘合或填平不同的操作。drop glue 本意是滴胶，而 drop 又有删除，去掉的意思。
+到这里则引申出了，它是编译器生成的，用来做清理（drop）的胶水（glue）指令的意思。</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>rib 本意是胸腔的肋骨，形状是从上往下逐渐增大，很像作用域由内向外层层扩大。
+然而不同于环状的是，它还有一个高度。作用域有个特点，就是即便一个作用域在另一个作用域之内，
+那么内部作用域里的变量也并不总是能访问外部作用的变量，有可能内部有个同名的变量把外部的屏蔽了。
+解决方案是，引入一个高度，让它变成个自上而下逐级变大的「栈」，并规定同级的内层可访问外层。
+如果内部能直接访问外部变量，那么它们在同一级上，作用域只分内外层；
+否则，就把内部的变量升高一级。在中文语境中，把它比作等高线或者汉诺塔似乎更加贴切。</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../appendix/background.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../appendix/code-index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../appendix/background.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../appendix/code-index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

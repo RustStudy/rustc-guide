@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>编译器测试框架 - Rustc 开发指南</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rustc 开发指南">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../about-this-guide.html">关于本指南</a></li><li class="spacer"></li><li><a href="../part-1-intro.html"><strong aria-hidden="true">1.</strong> 第一部分：rustc 的构建、调试与贡献</a></li><li><ol class="section"><li><a href="../compiler-team.html"><strong aria-hidden="true">1.1.</strong> 关于编译器团队</a></li><li><a href="../how-to-build-and-run.html"><strong aria-hidden="true">1.2.</strong> 如何构建并运行编译器</a></li><li><ol class="section"><li><a href="../build-install-distribution-artifacts.html"><strong aria-hidden="true">1.2.1.</strong> 构建并安装发行版工件</a></li><li><a href="../compiler-documenting.html"><strong aria-hidden="true">1.2.2.</strong> 构建编译器文档</a></li></ol></li><li><a href="../tests/intro.html" class="active"><strong aria-hidden="true">1.3.</strong> 编译器测试框架</a></li><li><ol class="section"><li><a href="../tests/running.html"><strong aria-hidden="true">1.3.1.</strong> 运行测试</a></li><li><a href="../tests/adding.html"><strong aria-hidden="true">1.3.2.</strong> 添加新测试</a></li><li><a href="../compiletest.html"><strong aria-hidden="true">1.3.3.</strong> 使用 compiletest + 命令来控制测试执行</a></li></ol></li><li><a href="../walkthrough.html"><strong aria-hidden="true">1.4.</strong> 攻略：一次典型的贡献</a></li><li><a href="../implementing_new_features.html"><strong aria-hidden="true">1.5.</strong> 实现新特性</a></li><li><a href="../stabilization_guide.html"><strong aria-hidden="true">1.6.</strong> 稳定化特性</a></li><li><a href="../compiler-debugging.html"><strong aria-hidden="true">1.7.</strong> 调试编译器</a></li><li><a href="../profiling.html"><strong aria-hidden="true">1.8.</strong> 剖析编译器性能</a></li><li><ol class="section"><li><a href="../profiling/with_perf.html"><strong aria-hidden="true">1.8.1.</strong> 使用 linux perf 工具剖析</a></li></ol></li><li><a href="../conventions.html"><strong aria-hidden="true">1.9.</strong> 编码约定</a></li><li><a href="../crates-io.html"><strong aria-hidden="true">1.10.</strong> crates.io 依赖</a></li><li><a href="../diagnostics.html"><strong aria-hidden="true">1.11.</strong> 消除错误和其它诊断报告</a></li><li><ol class="section"><li><a href="../diagnostics/json-format.html"><strong aria-hidden="true">1.11.1.</strong> JSON 诊断报告格式</a></li></ol></li></ol></li><li><a href="../part-2-intro.html"><strong aria-hidden="true">2.</strong> 第二部分：rustc 的工作原理</a></li><li><ol class="section"><li><a href="../high-level-overview.html"><strong aria-hidden="true">2.1.</strong> 编译器源码概览</a></li><li><a href="../rustc-driver.html"><strong aria-hidden="true">2.2.</strong> rustc 驱动与接口</a></li><li><ol class="section"><li><a href="../rustdoc.html"><strong aria-hidden="true">2.2.1.</strong> rustdoc</a></li></ol></li><li><a href="../query.html"><strong aria-hidden="true">2.3.</strong> 查询：需求驱动的编译</a></li><li><ol class="section"><li><a href="../queries/query-evaluation-model-in-detail.html"><strong aria-hidden="true">2.3.1.</strong> 查询求值模型详解</a></li><li><a href="../queries/incremental-compilation.html"><strong aria-hidden="true">2.3.2.</strong> 增量编译</a></li><li><a href="../queries/incremental-compilation-in-detail.html"><strong aria-hidden="true">2.3.3.</strong> 增量编译详解</a></li><li><a href="../incrcomp-debugging.html"><strong aria-hidden="true">2.3.4.</strong> 调试与测试</a></li></ol></li><li><a href="../the-parser.html"><strong aria-hidden="true">2.4.</strong> 解析器</a></li><li><a href="../test-implementation.html"><strong aria-hidden="true">2.5.</strong> #[test] 实现</a></li><li><a href="../macro-expansion.html"><strong aria-hidden="true">2.6.</strong> 宏展开</a></li><li><a href="../name-resolution.html"><strong aria-hidden="true">2.7.</strong> 名字求解</a></li><li><a href="../hir.html"><strong aria-hidden="true">2.8.</strong> HIR（上层 IR）</a></li><li><ol class="section"><li><a href="../lowering.html"><strong aria-hidden="true">2.8.1.</strong> 将 AST 降低为 HIR</a></li><li><a href="../hir-debugging.html"><strong aria-hidden="true">2.8.2.</strong> 调试</a></li></ol></li><li><a href="../ty.html"><strong aria-hidden="true">2.9.</strong> ty 模块：类型的表示</a></li><li><a href="../kinds.html"><strong aria-hidden="true">2.10.</strong> 种类</a></li><li><a href="../type-inference.html"><strong aria-hidden="true">2.11.</strong> 类型推导</a></li><li><a href="../traits/resolution.html"><strong aria-hidden="true">2.12.</strong> Trait 解算（旧式风格）</a></li><li><ol class="section"><li><a href="../traits/hrtb.html"><strong aria-hidden="true">2.12.1.</strong> 高阶 trait 绑定</a></li><li><a href="../traits/caching.html"><strong aria-hidden="true">2.12.2.</strong> 缓存的细节</a></li><li><a href="../traits/specialization.html"><strong aria-hidden="true">2.12.3.</strong> 特化</a></li></ol></li><li><a href="../traits/index.html"><strong aria-hidden="true">2.13.</strong> Trait 解算（新式风格）</a></li><li><ol class="section"><li><a href="../traits/lowering-to-logic.html"><strong aria-hidden="true">2.13.1.</strong> 降低到逻辑层面</a></li><li><ol class="section"><li><a href="../traits/goals-and-clauses.html"><strong aria-hidden="true">2.13.1.1.</strong> 目标与已知</a></li><li><a href="../traits/associated-types.html"><strong aria-hidden="true">2.13.1.2.</strong> 相等性与惯量类型</a></li><li><a href="../traits/implied-bounds.html"><strong aria-hidden="true">2.13.1.3.</strong> 隐式界定</a></li><li><a href="../traits/regions.html"><strong aria-hidden="true">2.13.1.4.</strong> 生存期约束</a></li><li><a href="../traits/lowering-module.html"><strong aria-hidden="true">2.13.1.5.</strong> rustc 中的 lowering 模块</a></li><li><a href="../traits/lowering-rules.html"><strong aria-hidden="true">2.13.1.6.</strong> 降低规则</a></li><li><a href="../traits/wf.html"><strong aria-hidden="true">2.13.1.7.</strong> 良构性检查</a></li></ol></li><li><a href="../traits/canonical-queries.html"><strong aria-hidden="true">2.13.2.</strong> 典范查询</a></li><li><ol class="section"><li><a href="../traits/canonicalization.html"><strong aria-hidden="true">2.13.2.1.</strong> 典范化</a></li></ol></li><li><a href="../traits/slg.html"><strong aria-hidden="true">2.13.3.</strong> SLG 解算器</a></li><li><a href="../traits/chalk-overview.html"><strong aria-hidden="true">2.13.4.</strong> Chalk 概览</a></li><li><a href="../traits/bibliography.html"><strong aria-hidden="true">2.13.5.</strong> 文献</a></li></ol></li><li><a href="../type-checking.html"><strong aria-hidden="true">2.14.</strong> 类型检查</a></li><li><ol class="section"><li><a href="../method-lookup.html"><strong aria-hidden="true">2.14.1.</strong> 方法的查找</a></li><li><a href="../variance.html"><strong aria-hidden="true">2.14.2.</strong> 型变</a></li><li><a href="../existential-types.html"><strong aria-hidden="true">2.14.3.</strong> 存在类型</a></li></ol></li><li><a href="../mir/index.html"><strong aria-hidden="true">2.15.</strong> MIR（中层 IR）</a></li><li><ol class="section"><li><a href="../mir/construction.html"><strong aria-hidden="true">2.15.1.</strong> MIR 的构造</a></li><li><a href="../mir/visitor.html"><strong aria-hidden="true">2.15.2.</strong> MIR 访问器与遍历</a></li><li><a href="../mir/passes.html"><strong aria-hidden="true">2.15.3.</strong> MIR 趟：获取函数的 MIRn</a></li><li><a href="../mir/optimizations.html"><strong aria-hidden="true">2.15.4.</strong> MIR 优化</a></li><li><a href="../mir/debugging.html"><strong aria-hidden="true">2.15.5.</strong> 调试</a></li></ol></li><li><a href="../borrow_check.html"><strong aria-hidden="true">2.16.</strong> 借用检查器</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization.html"><strong aria-hidden="true">2.16.1.</strong> 跟踪转移和初始化</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization/move_paths.html"><strong aria-hidden="true">2.16.1.1.</strong> 转移路径</a></li></ol></li><li><a href="../borrow_check/type_check.html"><strong aria-hidden="true">2.16.2.</strong> MIR 类型检查器</a></li><li><a href="../borrow_check/region_inference.html"><strong aria-hidden="true">2.16.3.</strong> 生存域推导</a></li><li><a href="../borrow_check/two_phase_borrows.html"><strong aria-hidden="true">2.16.4.</strong> 两阶段借用</a></li></ol></li><li><a href="../const-eval.html"><strong aria-hidden="true">2.17.</strong> 常量求值</a></li><li><ol class="section"><li><a href="../miri.html"><strong aria-hidden="true">2.17.1.</strong> miri const 求值器</a></li></ol></li><li><a href="../param_env.html"><strong aria-hidden="true">2.18.</strong> 形参环境</a></li><li><a href="../codegen.html"><strong aria-hidden="true">2.19.</strong> 代码生成</a></li><li><ol class="section"><li><a href="../codegen/updating-llvm.html"><strong aria-hidden="true">2.19.1.</strong> 更新 LLVM</a></li><li><a href="../codegen/debugging.html"><strong aria-hidden="true">2.19.2.</strong> 调试 LLVM</a></li></ol></li><li><a href="../profile-guided-optimization.html"><strong aria-hidden="true">2.20.</strong> 性能剖析指导的优化</a></li><li class="spacer"></li></ol></li><li><a href="../appendix/stupid-stats.html">附录 A：傻瓜分析</a></li><li class="affix"><a href="../appendix/background.html">附录 B：背景材料</a></li><li class="affix"><a href="../appendix/glossary.html">附录 C：术语表</a></li><li class="affix"><a href="../appendix/code-index.html">附录 D：代码索引</a></li><li class="affix"><a href="../important-links.html"></a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rustc 开发指南</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#the-compiler-testing-framework" id="the-compiler-testing-framework">The compiler testing framework</a></h1>
+<p>The Rust project runs a wide variety of different tests, orchestrated
+by the build system (<code>x.py test</code>).  The main test harness for testing
+the compiler itself is a tool called compiletest (sources in the
+<a href="https://github.com/rust-lang/rust/tree/master/src/tools/compiletest"><code>src/tools/compiletest</code></a>). This section gives a brief overview of how
+the testing framework is setup, and then gets into some of the details
+on <a href="./running.html#ui">how to run tests</a> as well as
+<a href="./adding.html">how to add new tests</a>.</p>
+<h2><a class="header" href="#compiletest-test-suites" id="compiletest-test-suites">Compiletest test suites</a></h2>
+<p>The compiletest tests are located in the tree in the <a href="https://github.com/rust-lang/rust/tree/master/src/test"><code>src/test</code></a>
+directory. Immediately within you will see a series of subdirectories
+(e.g. <code>ui</code>, <code>run-make</code>, and so forth). Each of those directories is
+called a <strong>test suite</strong> – they house a group of tests that are run in
+a distinct mode.</p>
+<p>Here is a brief summary of the test suites as of this writing and what
+they mean. In some cases, the test suites are linked to parts of the manual
+that give more details.</p>
+<ul>
+<li><a href="./adding.html#ui"><code>ui</code></a> – tests that check the exact
+stdout/stderr from compilation and/or running the test</li>
+<li><code>run-pass</code> – tests that are expected to compile and execute
+successfully (no panics)
+<ul>
+<li><code>run-pass-valgrind</code> – tests that ought to run with valgrind</li>
+</ul>
+</li>
+<li><code>run-fail</code> – tests that are expected to compile but then panic
+during execution</li>
+<li><code>compile-fail</code> – tests that are expected to fail compilation.</li>
+<li><code>parse-fail</code> – tests that are expected to fail to parse</li>
+<li><code>pretty</code> – tests targeting the Rust &quot;pretty printer&quot;, which
+generates valid Rust code from the AST</li>
+<li><code>debuginfo</code> – tests that run in gdb or lldb and query the debug info</li>
+<li><code>codegen</code> – tests that compile and then test the generated LLVM
+code to make sure that the optimizations we want are taking effect.</li>
+<li><code>assembly</code> – similar to <code>codegen</code> tests, but verifies assembly output
+to make sure LLVM target backend can handle provided code.</li>
+<li><code>mir-opt</code> – tests that check parts of the generated MIR to make
+sure we are building things correctly or doing the optimizations we
+expect.</li>
+<li><code>incremental</code> – tests for incremental compilation, checking that
+when certain modifications are performed, we are able to reuse the
+results from previous compilations.</li>
+<li><code>run-make</code> – tests that basically just execute a <code>Makefile</code>; the
+ultimate in flexibility but quite annoying to write.</li>
+<li><code>rustdoc</code> – tests for rustdoc, making sure that the generated files
+contain the expected documentation.</li>
+<li><code>*-fulldeps</code> – same as above, but indicates that the test depends
+on things other than <code>libstd</code> (and hence those things must be built)</li>
+</ul>
+<h2><a class="header" href="#other-tests" id="other-tests">Other Tests</a></h2>
+<p>The Rust build system handles running tests for various other things,
+including:</p>
+<ul>
+<li>
+<p><strong>Tidy</strong> – This is a custom tool used for validating source code
+style and formatting conventions, such as rejecting long lines.
+There is more information in the
+<a href="../conventions.html#formatting">section on coding conventions</a>.</p>
+<p>Example: <code>./x.py test src/tools/tidy</code></p>
+</li>
+<li>
+<p><strong>Unit tests</strong> – The Rust standard library and many of the Rust packages
+include typical Rust <code>#[test]</code> unittests.  Under the hood, <code>x.py</code> will run
+<code>cargo test</code> on each package to run all the tests.</p>
+<p>Example: <code>./x.py test src/libstd</code></p>
+</li>
+<li>
+<p><strong>Doc tests</strong> – Example code embedded within Rust documentation is executed
+via <code>rustdoc --test</code>.  Examples:</p>
+<p><code>./x.py test src/doc</code> – Runs <code>rustdoc --test</code> for all documentation in
+<code>src/doc</code>.</p>
+<p><code>./x.py test --doc src/libstd</code> – Runs <code>rustdoc --test</code> on the standard
+library.</p>
+</li>
+<li>
+<p><strong>Link checker</strong> – A small tool for verifying <code>href</code> links within
+documentation.</p>
+<p>Example: <code>./x.py test src/tools/linkchecker</code></p>
+</li>
+<li>
+<p><strong>Dist check</strong> – This verifies that the source distribution tarball created
+by the build system will unpack, build, and run all tests.</p>
+<p>Example: <code>./x.py test distcheck</code></p>
+</li>
+<li>
+<p><strong>Tool tests</strong> – Packages that are included with Rust have all of their
+tests run as well (typically by running <code>cargo test</code> within their
+directory).  This includes things such as cargo, clippy, rustfmt, rls, miri,
+bootstrap (testing the Rust build system itself), etc.</p>
+</li>
+<li>
+<p><strong>Cargo test</strong> – This is a small tool which runs <code>cargo test</code> on a few
+significant projects (such as <code>servo</code>, <code>ripgrep</code>, <code>tokei</code>, etc.) just to
+ensure there aren't any significant regressions.</p>
+<p>Example: <code>./x.py test src/tools/cargotest</code></p>
+</li>
+</ul>
+<h2><a class="header" href="#testing-infrastructure" id="testing-infrastructure">Testing infrastructure</a></h2>
+<p>When a Pull Request is opened on Github, <a href="https://travis-ci.org/rust-lang/rust">Travis</a> will automatically launch a
+build that will run all tests on a single configuration (x86-64 linux). In
+essence, it runs <code>./x.py test</code> after building.</p>
+<p>The integration bot <a href="https://github.com/servo/homu">bors</a> is used for coordinating merges to the master
+branch. When a PR is approved, it goes into a <a href="https://buildbot2.rust-lang.org/homu/queue/rust">queue</a> where merges are tested
+one at a time on a wide set of platforms using Travis and <a href="https://ci.appveyor.com/project/rust-lang/rust">Appveyor</a>
+(currently over 50 different configurations).  Most platforms only run the
+build steps, some run a restricted set of tests, only a subset run the full
+suite of tests (see Rust's <a href="https://forge.rust-lang.org/platform-support.html">platform tiers</a>).</p>
+<h2><a class="header" href="#testing-with-docker-images" id="testing-with-docker-images">Testing with Docker images</a></h2>
+<p>The Rust tree includes <a href="https://www.docker.com/">Docker</a> image definitions for the platforms used on
+Travis in <a href="https://github.com/rust-lang/rust/tree/master/src/ci/docker">src/ci/docker</a>.  The script <a href="https://github.com/rust-lang/rust/blob/master/src/ci/docker/run.sh">src/ci/docker/run.sh</a> is used to build
+the Docker image, run it, build Rust within the image, and run the tests.</p>
+<blockquote>
+<p>TODO: What is a typical workflow for testing/debugging on a platform that
+you don't have easy access to?  Do people build Docker images and enter them
+to test things out?</p>
+</blockquote>
+<h2><a class="header" href="#testing-on-emulators" id="testing-on-emulators">Testing on emulators</a></h2>
+<p>Some platforms are tested via an emulator for architectures that aren't
+readily available.  There is a set of tools for orchestrating running the
+tests within the emulator.  Platforms such as <code>arm-android</code> and
+<code>arm-unknown-linux-gnueabihf</code> are set up to automatically run the tests under
+emulation on Travis.  The following will take a look at how a target's tests
+are run under emulation.</p>
+<p>The Docker image for <a href="https://github.com/rust-lang/rust/tree/master/src/ci/docker/armhf-gnu">armhf-gnu</a> includes <a href="https://www.qemu.org/">QEMU</a> to emulate the ARM CPU
+architecture.  Included in the Rust tree are the tools <a href="https://github.com/rust-lang/rust/tree/master/src/tools/remote-test-client">remote-test-client</a>
+and <a href="https://github.com/rust-lang/rust/tree/master/src/tools/remote-test-server">remote-test-server</a> which are programs for sending test programs and
+libraries to the emulator, and running the tests within the emulator, and
+reading the results.  The Docker image is set up to launch
+<code>remote-test-server</code> and the build tools use <code>remote-test-client</code> to
+communicate with the server to coordinate running tests (see
+<a href="https://github.com/rust-lang/rust/tree/master/src/bootstrap/test.rs">src/bootstrap/test.rs</a>).</p>
+<blockquote>
+<p>TODO: What are the steps for manually running tests within an emulator?
+<code>./src/ci/docker/run.sh armhf-gnu</code> will do everything, but takes hours to
+run and doesn't offer much help with interacting within the emulator.</p>
+<p>Is there any support for emulating other (non-Android) platforms, such as
+running on an iOS emulator?</p>
+<p>Is there anything else interesting that can be said here about running tests
+remotely on real hardware?</p>
+<p>It's also unclear to me how the wasm or asm.js tests are run.</p>
+</blockquote>
+<h2><a class="header" href="#crater" id="crater">Crater</a></h2>
+<p><a href="https://github.com/rust-lang-nursery/crater">Crater</a> is a tool for compiling
+and running tests for <em>every</em> crate on <a href="https://crates.io">crates.io</a> (and a
+few on GitHub). It is mainly used for checking for extent of breakage when
+implementing potentially breaking changes and ensuring lack of breakage by
+running beta vs stable compiler versions.</p>
+<h3><a class="header" href="#when-to-run-crater" id="when-to-run-crater">When to run Crater</a></h3>
+<p>You should request a crater run if your PR makes large changes to the compiler
+or could cause breakage. If you are unsure, feel free to ask your PR's reviewer.</p>
+<h3><a class="header" href="#requesting-crater-runs" id="requesting-crater-runs">Requesting Crater Runs</a></h3>
+<p>The rust team maintains a few machines that can be used for running crater runs
+on the changes introduced by a PR. If your PR needs a crater run, leave a
+comment for the triage team in the PR thread. Please inform the team whether
+you require a &quot;check-only&quot; crater run, a &quot;build only&quot; crater run, or a
+&quot;build-and-test&quot; crater run. The difference is primarily in time; the
+conservative (if you're not sure) option is to go for the build-and-test run.
+If making changes that will only have an effect at compile-time (e.g.,
+implementing a new trait) then you only need a check run.</p>
+<p>Your PR will be enqueued by the triage team and the results will be posted when
+they are ready. Check runs will take around ~3-4 days, with the other two
+taking 5-6 days on average.</p>
+<p>While crater is really useful, it is also important to be aware of a few
+caveats:</p>
+<ul>
+<li>
+<p>Not all code is on crates.io! There is a lot of code in repos on GitHub and
+elsewhere. Also, companies may not wish to publish their code. Thus, a
+successful crater run is not a magically green light that there will be no
+breakage; you still need to be careful.</p>
+</li>
+<li>
+<p>Crater only runs Linux builds on x86_64. Thus, other architectures and
+platforms are not tested. Critically, this includes Windows.</p>
+</li>
+<li>
+<p>Many crates are not tested. This could be for a lot of reasons, including
+that the crate doesn't compile any more (e.g. used old nightly features),
+has broken or flaky tests, requires network access, or other reasons.</p>
+</li>
+<li>
+<p>Before crater can be run, <code>@bors try</code> needs to succeed in building artifacts.
+This means that if your code doesn't compile, you cannot run crater.</p>
+</li>
+</ul>
+<h2><a class="header" href="#perf-runs" id="perf-runs">Perf runs</a></h2>
+<p>A lot of work is put into improving the performance of the compiler and
+preventing performance regressions. A &quot;perf run&quot; is used to compare the
+performance of the compiler in different configurations for a large collection
+of popular crates. Different configurations include &quot;fresh builds&quot;, builds
+with incremental compilation, etc.</p>
+<p>The result of a perf run is a comparison between two versions of the
+compiler (by their commit hashes).</p>
+<p>You should request a perf run if your PR may affect performance, especially
+if it can affect performance adversely.</p>
+<h2><a class="header" href="#further-reading" id="further-reading">Further reading</a></h2>
+<p>The following blog posts may also be of interest:</p>
+<ul>
+<li>brson's classic <a href="https://brson.github.io/2017/07/10/how-rust-is-tested">&quot;How Rust is tested&quot;</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../compiler-documenting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../tests/running.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../compiler-documenting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../tests/running.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

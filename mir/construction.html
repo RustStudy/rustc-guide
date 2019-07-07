@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>MIR 的构造 - Rustc 开发指南</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rustc 开发指南">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../about-this-guide.html">关于本指南</a></li><li class="spacer"></li><li><a href="../part-1-intro.html"><strong aria-hidden="true">1.</strong> 第一部分：rustc 的构建、调试与贡献</a></li><li><ol class="section"><li><a href="../compiler-team.html"><strong aria-hidden="true">1.1.</strong> 关于编译器团队</a></li><li><a href="../how-to-build-and-run.html"><strong aria-hidden="true">1.2.</strong> 如何构建并运行编译器</a></li><li><ol class="section"><li><a href="../build-install-distribution-artifacts.html"><strong aria-hidden="true">1.2.1.</strong> 构建并安装发行版工件</a></li><li><a href="../compiler-documenting.html"><strong aria-hidden="true">1.2.2.</strong> 构建编译器文档</a></li></ol></li><li><a href="../tests/intro.html"><strong aria-hidden="true">1.3.</strong> 编译器测试框架</a></li><li><ol class="section"><li><a href="../tests/running.html"><strong aria-hidden="true">1.3.1.</strong> 运行测试</a></li><li><a href="../tests/adding.html"><strong aria-hidden="true">1.3.2.</strong> 添加新测试</a></li><li><a href="../compiletest.html"><strong aria-hidden="true">1.3.3.</strong> 使用 compiletest + 命令来控制测试执行</a></li></ol></li><li><a href="../walkthrough.html"><strong aria-hidden="true">1.4.</strong> 攻略：一次典型的贡献</a></li><li><a href="../implementing_new_features.html"><strong aria-hidden="true">1.5.</strong> 实现新特性</a></li><li><a href="../stabilization_guide.html"><strong aria-hidden="true">1.6.</strong> 稳定化特性</a></li><li><a href="../compiler-debugging.html"><strong aria-hidden="true">1.7.</strong> 调试编译器</a></li><li><a href="../profiling.html"><strong aria-hidden="true">1.8.</strong> 剖析编译器性能</a></li><li><ol class="section"><li><a href="../profiling/with_perf.html"><strong aria-hidden="true">1.8.1.</strong> 使用 linux perf 工具剖析</a></li></ol></li><li><a href="../conventions.html"><strong aria-hidden="true">1.9.</strong> 编码约定</a></li><li><a href="../crates-io.html"><strong aria-hidden="true">1.10.</strong> crates.io 依赖</a></li><li><a href="../diagnostics.html"><strong aria-hidden="true">1.11.</strong> 消除错误和其它诊断报告</a></li><li><ol class="section"><li><a href="../diagnostics/json-format.html"><strong aria-hidden="true">1.11.1.</strong> JSON 诊断报告格式</a></li></ol></li></ol></li><li><a href="../part-2-intro.html"><strong aria-hidden="true">2.</strong> 第二部分：rustc 的工作原理</a></li><li><ol class="section"><li><a href="../high-level-overview.html"><strong aria-hidden="true">2.1.</strong> 编译器源码概览</a></li><li><a href="../rustc-driver.html"><strong aria-hidden="true">2.2.</strong> rustc 驱动与接口</a></li><li><ol class="section"><li><a href="../rustdoc.html"><strong aria-hidden="true">2.2.1.</strong> rustdoc</a></li></ol></li><li><a href="../query.html"><strong aria-hidden="true">2.3.</strong> 查询：需求驱动的编译</a></li><li><ol class="section"><li><a href="../queries/query-evaluation-model-in-detail.html"><strong aria-hidden="true">2.3.1.</strong> 查询求值模型详解</a></li><li><a href="../queries/incremental-compilation.html"><strong aria-hidden="true">2.3.2.</strong> 增量编译</a></li><li><a href="../queries/incremental-compilation-in-detail.html"><strong aria-hidden="true">2.3.3.</strong> 增量编译详解</a></li><li><a href="../incrcomp-debugging.html"><strong aria-hidden="true">2.3.4.</strong> 调试与测试</a></li></ol></li><li><a href="../the-parser.html"><strong aria-hidden="true">2.4.</strong> 解析器</a></li><li><a href="../test-implementation.html"><strong aria-hidden="true">2.5.</strong> #[test] 实现</a></li><li><a href="../macro-expansion.html"><strong aria-hidden="true">2.6.</strong> 宏展开</a></li><li><a href="../name-resolution.html"><strong aria-hidden="true">2.7.</strong> 名字求解</a></li><li><a href="../hir.html"><strong aria-hidden="true">2.8.</strong> HIR（上层 IR）</a></li><li><ol class="section"><li><a href="../lowering.html"><strong aria-hidden="true">2.8.1.</strong> 将 AST 降低为 HIR</a></li><li><a href="../hir-debugging.html"><strong aria-hidden="true">2.8.2.</strong> 调试</a></li></ol></li><li><a href="../ty.html"><strong aria-hidden="true">2.9.</strong> ty 模块：类型的表示</a></li><li><a href="../kinds.html"><strong aria-hidden="true">2.10.</strong> 种类</a></li><li><a href="../type-inference.html"><strong aria-hidden="true">2.11.</strong> 类型推导</a></li><li><a href="../traits/resolution.html"><strong aria-hidden="true">2.12.</strong> Trait 解算（旧式风格）</a></li><li><ol class="section"><li><a href="../traits/hrtb.html"><strong aria-hidden="true">2.12.1.</strong> 高阶 trait 绑定</a></li><li><a href="../traits/caching.html"><strong aria-hidden="true">2.12.2.</strong> 缓存的细节</a></li><li><a href="../traits/specialization.html"><strong aria-hidden="true">2.12.3.</strong> 特化</a></li></ol></li><li><a href="../traits/index.html"><strong aria-hidden="true">2.13.</strong> Trait 解算（新式风格）</a></li><li><ol class="section"><li><a href="../traits/lowering-to-logic.html"><strong aria-hidden="true">2.13.1.</strong> 降低到逻辑层面</a></li><li><ol class="section"><li><a href="../traits/goals-and-clauses.html"><strong aria-hidden="true">2.13.1.1.</strong> 目标与已知</a></li><li><a href="../traits/associated-types.html"><strong aria-hidden="true">2.13.1.2.</strong> 相等性与惯量类型</a></li><li><a href="../traits/implied-bounds.html"><strong aria-hidden="true">2.13.1.3.</strong> 隐式界定</a></li><li><a href="../traits/regions.html"><strong aria-hidden="true">2.13.1.4.</strong> 生存期约束</a></li><li><a href="../traits/lowering-module.html"><strong aria-hidden="true">2.13.1.5.</strong> rustc 中的 lowering 模块</a></li><li><a href="../traits/lowering-rules.html"><strong aria-hidden="true">2.13.1.6.</strong> 降低规则</a></li><li><a href="../traits/wf.html"><strong aria-hidden="true">2.13.1.7.</strong> 良构性检查</a></li></ol></li><li><a href="../traits/canonical-queries.html"><strong aria-hidden="true">2.13.2.</strong> 典范查询</a></li><li><ol class="section"><li><a href="../traits/canonicalization.html"><strong aria-hidden="true">2.13.2.1.</strong> 典范化</a></li></ol></li><li><a href="../traits/slg.html"><strong aria-hidden="true">2.13.3.</strong> SLG 解算器</a></li><li><a href="../traits/chalk-overview.html"><strong aria-hidden="true">2.13.4.</strong> Chalk 概览</a></li><li><a href="../traits/bibliography.html"><strong aria-hidden="true">2.13.5.</strong> 文献</a></li></ol></li><li><a href="../type-checking.html"><strong aria-hidden="true">2.14.</strong> 类型检查</a></li><li><ol class="section"><li><a href="../method-lookup.html"><strong aria-hidden="true">2.14.1.</strong> 方法的查找</a></li><li><a href="../variance.html"><strong aria-hidden="true">2.14.2.</strong> 型变</a></li><li><a href="../existential-types.html"><strong aria-hidden="true">2.14.3.</strong> 存在类型</a></li></ol></li><li><a href="../mir/index.html"><strong aria-hidden="true">2.15.</strong> MIR（中层 IR）</a></li><li><ol class="section"><li><a href="../mir/construction.html" class="active"><strong aria-hidden="true">2.15.1.</strong> MIR 的构造</a></li><li><a href="../mir/visitor.html"><strong aria-hidden="true">2.15.2.</strong> MIR 访问器与遍历</a></li><li><a href="../mir/passes.html"><strong aria-hidden="true">2.15.3.</strong> MIR 趟：获取函数的 MIRn</a></li><li><a href="../mir/optimizations.html"><strong aria-hidden="true">2.15.4.</strong> MIR 优化</a></li><li><a href="../mir/debugging.html"><strong aria-hidden="true">2.15.5.</strong> 调试</a></li></ol></li><li><a href="../borrow_check.html"><strong aria-hidden="true">2.16.</strong> 借用检查器</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization.html"><strong aria-hidden="true">2.16.1.</strong> 跟踪转移和初始化</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization/move_paths.html"><strong aria-hidden="true">2.16.1.1.</strong> 转移路径</a></li></ol></li><li><a href="../borrow_check/type_check.html"><strong aria-hidden="true">2.16.2.</strong> MIR 类型检查器</a></li><li><a href="../borrow_check/region_inference.html"><strong aria-hidden="true">2.16.3.</strong> 生存域推导</a></li><li><a href="../borrow_check/two_phase_borrows.html"><strong aria-hidden="true">2.16.4.</strong> 两阶段借用</a></li></ol></li><li><a href="../const-eval.html"><strong aria-hidden="true">2.17.</strong> 常量求值</a></li><li><ol class="section"><li><a href="../miri.html"><strong aria-hidden="true">2.17.1.</strong> miri const 求值器</a></li></ol></li><li><a href="../param_env.html"><strong aria-hidden="true">2.18.</strong> 形参环境</a></li><li><a href="../codegen.html"><strong aria-hidden="true">2.19.</strong> 代码生成</a></li><li><ol class="section"><li><a href="../codegen/updating-llvm.html"><strong aria-hidden="true">2.19.1.</strong> 更新 LLVM</a></li><li><a href="../codegen/debugging.html"><strong aria-hidden="true">2.19.2.</strong> 调试 LLVM</a></li></ol></li><li><a href="../profile-guided-optimization.html"><strong aria-hidden="true">2.20.</strong> 性能剖析指导的优化</a></li><li class="spacer"></li></ol></li><li><a href="../appendix/stupid-stats.html">附录 A：傻瓜分析</a></li><li class="affix"><a href="../appendix/background.html">附录 B：背景材料</a></li><li class="affix"><a href="../appendix/glossary.html">附录 C：术语表</a></li><li class="affix"><a href="../appendix/code-index.html">附录 D：代码索引</a></li><li class="affix"><a href="../important-links.html"></a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rustc 开发指南</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#mir-construction" id="mir-construction">MIR construction</a></h1>
+<p>The lowering of <a href="../hir.html">HIR</a> to <a href="./index.html">MIR</a> occurs for the following (probably incomplete)
+list of items:</p>
+<ul>
+<li>Function and Closure bodies</li>
+<li>Initializers of <code>static</code> and <code>const</code> items</li>
+<li>Initializers of enum discriminants</li>
+<li>Glue and Shims of any kind
+<ul>
+<li>Tuple struct initializer functions</li>
+<li>Drop code (the <code>Drop::drop</code> function is not called directly)</li>
+<li>Drop implementations of types without an explicit <code>Drop</code> implementation</li>
+</ul>
+</li>
+</ul>
+<p>The lowering is triggered by calling the <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/transform/fn.mir_built.html"><code>mir_built</code></a> query.
+There is an intermediate representation
+between <a href="../hir.html">HIR</a> and <a href="./index.html">MIR</a> called the <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/hair/index.html">HAIR</a> that is only used during the lowering.
+The <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/hair/index.html">HAIR</a>'s most important feature is that the various adjustments (which happen
+without explicit syntax) like coercions, autoderef, autoref and overloaded method
+calls have become explicit casts, deref operations, reference expressions or
+concrete function calls.</p>
+<p>The <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/hair/index.html">HAIR</a> has datatypes that mirror the <a href="../hir.html">HIR</a> datatypes, but instead of e.g. <code>-x</code>
+being a <code>hair::ExprKind::Neg(hair::Expr)</code> it is a <code>hair::ExprKind::Neg(hir::Expr)</code>.
+This shallowness enables the <code>HAIR</code> to represent all datatypes that <a href="../hir.html">HIR</a> has, but
+without having to create an in-memory copy of the entire <a href="../hir.html">HIR</a>.
+<a href="./index.html">MIR</a> lowering will first convert the topmost expression from
+<a href="../hir.html">HIR</a> to <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/hair/index.html">HAIR</a> (in <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/hair/cx/expr/index.html">rustc_mir::hair::cx::expr</a>) and then process
+the <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_mir/hair/index.html">HAIR</a> expressions recursively.</p>
+<p>The lowering creates local variables for every argument as specified in the signature.
+Next it creates local variables for every binding specified (e.g. <code>(a, b): (i32, String)</code>)
+produces 3 bindings, one for the argument, and two for the bindings. Next it generates
+field accesses that read the fields from the argument and writes the value to the binding
+variable.</p>
+<p>With this initialization out of the way, the lowering triggers a recursive call
+to a function that generates the MIR for the body (a <code>Block</code> expression) and
+writes the result into the <code>RETURN_PLACE</code>.</p>
+<h2><a class="header" href="#unpack-all-the-things" id="unpack-all-the-things"><code>unpack!</code> all the things</a></h2>
+<p>Functions that generate MIR tend to fall into one of two patterns.
+First, if the function generates only statements, then it will take a
+basic block as argument onto which those statements should be appended.
+It can then return a result as normal:</p>
+<pre><code class="language-rust ignore">fn generate_some_mir(&amp;mut self, block: BasicBlock) -&gt; ResultType {
+   ...
+}
+</code></pre>
+<p>But there are other functions that may generate new basic blocks as well.
+For example, lowering an expression like <code>if foo { 22 } else { 44 }</code>
+requires generating a small &quot;diamond-shaped graph&quot;.
+In this case, the functions take a basic block where their code starts
+and return a (potentially) new basic block where the code generation ends.
+The <code>BlockAnd</code> type is used to represent this:</p>
+<pre><code class="language-rust ignore">fn generate_more_mir(&amp;mut self, block: BasicBlock) -&gt; BlockAnd&lt;ResultType&gt; {
+    ...
+}
+</code></pre>
+<p>When you invoke these functions, it is common to have a local variable <code>block</code>
+that is effectively a &quot;cursor&quot;. It represents the point at which we are adding new MIR.
+When you invoke <code>generate_more_mir</code>, you want to update this cursor.
+You can do this manually, but it's tedious:</p>
+<pre><code class="language-rust ignore">let mut block;
+let v = match self.generate_more_mir(..) {
+    BlockAnd { block: new_block, value: v } =&gt; {
+        block = new_block;
+        v
+    }
+};
+</code></pre>
+<p>For this reason, we offer a macro that lets you write
+<code>let v = unpack!(block = self.generate_more_mir(...))</code>.
+It simply extracts the new block and overwrites the
+variable <code>block</code> that you named in the <code>unpack!</code>.</p>
+<h2><a class="header" href="#lowering-expressions-into-the-desired-mir" id="lowering-expressions-into-the-desired-mir">Lowering expressions into the desired MIR</a></h2>
+<p>There are essentially four kinds of representations one might want of an expression:</p>
+<ul>
+<li><code>Place</code> refers to a (or part of a) preexisting memory location (local, static, promoted)</li>
+<li><code>Rvalue</code> is something that can be assigned to a <code>Place</code></li>
+<li><code>Operand</code> is an argument to e.g. a <code>+</code> operation or a function call</li>
+<li>a temporary variable containing a copy of the value</li>
+</ul>
+<p>These following image depicts a general overview of the interactions between the
+representations:</p>
+<img src="mir_overview.svg">
+<p><a href="mir_detailed.svg">Click here for a more detailed view</a></p>
+<p>We start out with lowering the function body to an <code>Rvalue</code> so we can create an
+assignment to <code>RETURN_PLACE</code>, This <code>Rvalue</code> lowering will in turn trigger lowering to
+<code>Operand</code> for its arguments (if any). <code>Operand</code> lowering either produces a <code>const</code>
+operand, or moves/copies out of a <code>Place</code>, thus triggering a <code>Place</code> lowering. An
+expression being lowered to a <code>Place</code> can in turn trigger a temporary to be created
+if the expression being lowered contains operations. This is where the snake bites its
+own tail and we need to trigger an <code>Rvalue</code> lowering for the expression to be written
+into the local.</p>
+<h2><a class="header" href="#operator-lowering" id="operator-lowering">Operator lowering</a></h2>
+<p>Operators on builtin types are not lowered to function calls (which would end up being
+infinite recursion calls, because the trait impls just contain the operation itself
+again). Instead there are <code>Rvalue</code>s for binary and unary operators and index operations.
+These <code>Rvalue</code>s later get codegened to llvm primitive operations or llvm intrinsics.</p>
+<p>Operators on all other types get lowered to a function call to their <code>impl</code> of the
+operator's corresponding trait.</p>
+<p>Regardless of the lowering kind, the arguments to the operator are lowered to <code>Operand</code>s.
+This means all arguments are either constants, or refer to an already existing value
+somewhere in a local or static.</p>
+<h2><a class="header" href="#method-call-lowering" id="method-call-lowering">Method call lowering</a></h2>
+<p>Method calls are lowered to the same <code>TerminatorKind</code> that function calls are.
+In <a href="./index.html">MIR</a> there is no difference between method calls and function calls anymore.</p>
+<h2><a class="header" href="#conditions" id="conditions">Conditions</a></h2>
+<p><code>if</code> conditions and <code>match</code> statements for <code>enum</code>s without variants with fields are
+lowered to <code>TerminatorKind::SwitchInt</code>. Each possible value (so <code>0</code> and <code>1</code> for <code>if</code>
+conditions) has a corresponding <code>BasicBlock</code> to which the code continues.
+The argument being branched on is (again) an <code>Operand</code> representing the value of
+the if condition.</p>
+<h3><a class="header" href="#pattern-matching" id="pattern-matching">Pattern matching</a></h3>
+<p><code>match</code> statements for <code>enum</code>s with variants that have fields are lowered to
+<code>TerminatorKind::SwitchInt</code>, too, but the <code>Operand</code> refers to a <code>Place</code> where the
+discriminant of the value can be found. This often involves reading the discriminant
+to a new temporary variable.</p>
+<h2><a class="header" href="#aggregate-construction" id="aggregate-construction">Aggregate construction</a></h2>
+<p>Aggregate values of any kind (e.g. structs or tuples) are built via <code>Rvalue::Aggregate</code>.
+All fields are
+lowered to <code>Operator</code>s. This is essentially equivalent to one assignment
+statement per aggregate field plus an assignment to the discriminant in the
+case of <code>enum</code>s.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../mir/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../mir/visitor.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../mir/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../mir/visitor.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

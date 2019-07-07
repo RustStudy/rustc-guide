@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>附录 D：代码索引 - Rustc 开发指南</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Rustc 开发指南">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="affix"><a href="../about-this-guide.html">关于本指南</a></li><li class="spacer"></li><li><a href="../part-1-intro.html"><strong aria-hidden="true">1.</strong> 第一部分：rustc 的构建、调试与贡献</a></li><li><ol class="section"><li><a href="../compiler-team.html"><strong aria-hidden="true">1.1.</strong> 关于编译器团队</a></li><li><a href="../how-to-build-and-run.html"><strong aria-hidden="true">1.2.</strong> 如何构建并运行编译器</a></li><li><ol class="section"><li><a href="../build-install-distribution-artifacts.html"><strong aria-hidden="true">1.2.1.</strong> 构建并安装发行版工件</a></li><li><a href="../compiler-documenting.html"><strong aria-hidden="true">1.2.2.</strong> 构建编译器文档</a></li></ol></li><li><a href="../tests/intro.html"><strong aria-hidden="true">1.3.</strong> 编译器测试框架</a></li><li><ol class="section"><li><a href="../tests/running.html"><strong aria-hidden="true">1.3.1.</strong> 运行测试</a></li><li><a href="../tests/adding.html"><strong aria-hidden="true">1.3.2.</strong> 添加新测试</a></li><li><a href="../compiletest.html"><strong aria-hidden="true">1.3.3.</strong> 使用 compiletest + 命令来控制测试执行</a></li></ol></li><li><a href="../walkthrough.html"><strong aria-hidden="true">1.4.</strong> 攻略：一次典型的贡献</a></li><li><a href="../implementing_new_features.html"><strong aria-hidden="true">1.5.</strong> 实现新特性</a></li><li><a href="../stabilization_guide.html"><strong aria-hidden="true">1.6.</strong> 稳定化特性</a></li><li><a href="../compiler-debugging.html"><strong aria-hidden="true">1.7.</strong> 调试编译器</a></li><li><a href="../profiling.html"><strong aria-hidden="true">1.8.</strong> 剖析编译器性能</a></li><li><ol class="section"><li><a href="../profiling/with_perf.html"><strong aria-hidden="true">1.8.1.</strong> 使用 linux perf 工具剖析</a></li></ol></li><li><a href="../conventions.html"><strong aria-hidden="true">1.9.</strong> 编码约定</a></li><li><a href="../crates-io.html"><strong aria-hidden="true">1.10.</strong> crates.io 依赖</a></li><li><a href="../diagnostics.html"><strong aria-hidden="true">1.11.</strong> 消除错误和其它诊断报告</a></li><li><ol class="section"><li><a href="../diagnostics/json-format.html"><strong aria-hidden="true">1.11.1.</strong> JSON 诊断报告格式</a></li></ol></li></ol></li><li><a href="../part-2-intro.html"><strong aria-hidden="true">2.</strong> 第二部分：rustc 的工作原理</a></li><li><ol class="section"><li><a href="../high-level-overview.html"><strong aria-hidden="true">2.1.</strong> 编译器源码概览</a></li><li><a href="../rustc-driver.html"><strong aria-hidden="true">2.2.</strong> rustc 驱动与接口</a></li><li><ol class="section"><li><a href="../rustdoc.html"><strong aria-hidden="true">2.2.1.</strong> rustdoc</a></li></ol></li><li><a href="../query.html"><strong aria-hidden="true">2.3.</strong> 查询：需求驱动的编译</a></li><li><ol class="section"><li><a href="../queries/query-evaluation-model-in-detail.html"><strong aria-hidden="true">2.3.1.</strong> 查询求值模型详解</a></li><li><a href="../queries/incremental-compilation.html"><strong aria-hidden="true">2.3.2.</strong> 增量编译</a></li><li><a href="../queries/incremental-compilation-in-detail.html"><strong aria-hidden="true">2.3.3.</strong> 增量编译详解</a></li><li><a href="../incrcomp-debugging.html"><strong aria-hidden="true">2.3.4.</strong> 调试与测试</a></li></ol></li><li><a href="../the-parser.html"><strong aria-hidden="true">2.4.</strong> 解析器</a></li><li><a href="../test-implementation.html"><strong aria-hidden="true">2.5.</strong> #[test] 实现</a></li><li><a href="../macro-expansion.html"><strong aria-hidden="true">2.6.</strong> 宏展开</a></li><li><a href="../name-resolution.html"><strong aria-hidden="true">2.7.</strong> 名字求解</a></li><li><a href="../hir.html"><strong aria-hidden="true">2.8.</strong> HIR（上层 IR）</a></li><li><ol class="section"><li><a href="../lowering.html"><strong aria-hidden="true">2.8.1.</strong> 将 AST 降低为 HIR</a></li><li><a href="../hir-debugging.html"><strong aria-hidden="true">2.8.2.</strong> 调试</a></li></ol></li><li><a href="../ty.html"><strong aria-hidden="true">2.9.</strong> ty 模块：类型的表示</a></li><li><a href="../kinds.html"><strong aria-hidden="true">2.10.</strong> 种类</a></li><li><a href="../type-inference.html"><strong aria-hidden="true">2.11.</strong> 类型推导</a></li><li><a href="../traits/resolution.html"><strong aria-hidden="true">2.12.</strong> Trait 解算（旧式风格）</a></li><li><ol class="section"><li><a href="../traits/hrtb.html"><strong aria-hidden="true">2.12.1.</strong> 高阶 trait 绑定</a></li><li><a href="../traits/caching.html"><strong aria-hidden="true">2.12.2.</strong> 缓存的细节</a></li><li><a href="../traits/specialization.html"><strong aria-hidden="true">2.12.3.</strong> 特化</a></li></ol></li><li><a href="../traits/index.html"><strong aria-hidden="true">2.13.</strong> Trait 解算（新式风格）</a></li><li><ol class="section"><li><a href="../traits/lowering-to-logic.html"><strong aria-hidden="true">2.13.1.</strong> 降低到逻辑层面</a></li><li><ol class="section"><li><a href="../traits/goals-and-clauses.html"><strong aria-hidden="true">2.13.1.1.</strong> 目标与已知</a></li><li><a href="../traits/associated-types.html"><strong aria-hidden="true">2.13.1.2.</strong> 相等性与惯量类型</a></li><li><a href="../traits/implied-bounds.html"><strong aria-hidden="true">2.13.1.3.</strong> 隐式界定</a></li><li><a href="../traits/regions.html"><strong aria-hidden="true">2.13.1.4.</strong> 生存期约束</a></li><li><a href="../traits/lowering-module.html"><strong aria-hidden="true">2.13.1.5.</strong> rustc 中的 lowering 模块</a></li><li><a href="../traits/lowering-rules.html"><strong aria-hidden="true">2.13.1.6.</strong> 降低规则</a></li><li><a href="../traits/wf.html"><strong aria-hidden="true">2.13.1.7.</strong> 良构性检查</a></li></ol></li><li><a href="../traits/canonical-queries.html"><strong aria-hidden="true">2.13.2.</strong> 典范查询</a></li><li><ol class="section"><li><a href="../traits/canonicalization.html"><strong aria-hidden="true">2.13.2.1.</strong> 典范化</a></li></ol></li><li><a href="../traits/slg.html"><strong aria-hidden="true">2.13.3.</strong> SLG 解算器</a></li><li><a href="../traits/chalk-overview.html"><strong aria-hidden="true">2.13.4.</strong> Chalk 概览</a></li><li><a href="../traits/bibliography.html"><strong aria-hidden="true">2.13.5.</strong> 文献</a></li></ol></li><li><a href="../type-checking.html"><strong aria-hidden="true">2.14.</strong> 类型检查</a></li><li><ol class="section"><li><a href="../method-lookup.html"><strong aria-hidden="true">2.14.1.</strong> 方法的查找</a></li><li><a href="../variance.html"><strong aria-hidden="true">2.14.2.</strong> 型变</a></li><li><a href="../existential-types.html"><strong aria-hidden="true">2.14.3.</strong> 存在类型</a></li></ol></li><li><a href="../mir/index.html"><strong aria-hidden="true">2.15.</strong> MIR（中层 IR）</a></li><li><ol class="section"><li><a href="../mir/construction.html"><strong aria-hidden="true">2.15.1.</strong> MIR 的构造</a></li><li><a href="../mir/visitor.html"><strong aria-hidden="true">2.15.2.</strong> MIR 访问器与遍历</a></li><li><a href="../mir/passes.html"><strong aria-hidden="true">2.15.3.</strong> MIR 趟：获取函数的 MIRn</a></li><li><a href="../mir/optimizations.html"><strong aria-hidden="true">2.15.4.</strong> MIR 优化</a></li><li><a href="../mir/debugging.html"><strong aria-hidden="true">2.15.5.</strong> 调试</a></li></ol></li><li><a href="../borrow_check.html"><strong aria-hidden="true">2.16.</strong> 借用检查器</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization.html"><strong aria-hidden="true">2.16.1.</strong> 跟踪转移和初始化</a></li><li><ol class="section"><li><a href="../borrow_check/moves_and_initialization/move_paths.html"><strong aria-hidden="true">2.16.1.1.</strong> 转移路径</a></li></ol></li><li><a href="../borrow_check/type_check.html"><strong aria-hidden="true">2.16.2.</strong> MIR 类型检查器</a></li><li><a href="../borrow_check/region_inference.html"><strong aria-hidden="true">2.16.3.</strong> 生存域推导</a></li><li><a href="../borrow_check/two_phase_borrows.html"><strong aria-hidden="true">2.16.4.</strong> 两阶段借用</a></li></ol></li><li><a href="../const-eval.html"><strong aria-hidden="true">2.17.</strong> 常量求值</a></li><li><ol class="section"><li><a href="../miri.html"><strong aria-hidden="true">2.17.1.</strong> miri const 求值器</a></li></ol></li><li><a href="../param_env.html"><strong aria-hidden="true">2.18.</strong> 形参环境</a></li><li><a href="../codegen.html"><strong aria-hidden="true">2.19.</strong> 代码生成</a></li><li><ol class="section"><li><a href="../codegen/updating-llvm.html"><strong aria-hidden="true">2.19.1.</strong> 更新 LLVM</a></li><li><a href="../codegen/debugging.html"><strong aria-hidden="true">2.19.2.</strong> 调试 LLVM</a></li></ol></li><li><a href="../profile-guided-optimization.html"><strong aria-hidden="true">2.20.</strong> 性能剖析指导的优化</a></li><li class="spacer"></li></ol></li><li><a href="../appendix/stupid-stats.html">附录 A：傻瓜分析</a></li><li class="affix"><a href="../appendix/background.html">附录 B：背景材料</a></li><li class="affix"><a href="../appendix/glossary.html">附录 C：术语表</a></li><li class="affix"><a href="../appendix/code-index.html" class="active">附录 D：代码索引</a></li><li class="affix"><a href="../important-links.html"></a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Rustc 开发指南</h1>
+
+                        <div class="right-buttons">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!--
+# Appendix D: Code Index
+-->
+<h1><a class="header" href="#附录-d代码索引" id="附录-d代码索引">附录 D：代码索引</a></h1>
+<!--
+rustc has a lot of important data structures. This is an attempt to give some
+guidance on where to learn more about some of the key data structures of the
+compiler.
+-->
+<p>rustc 中有大量重要的数据结构。本附录列出了一些编译器中关键的数据结构，给出了了解其细节的途径。</p>
+<!--
+Item            |  Kind    | Short description           | Chapter            | Declaration
+----------------|----------|-----------------------------|--------------------|-------------------
+`BodyId` | struct | One of four types of HIR node identifiers | [Identifiers in the HIR] | [src/librustc/hir/mod.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/hir/struct.BodyId.html)
+`Compiler` | struct | Represents a compiler session and can be used to drive a compilation. | [The Rustc Driver and Interface] | [src/librustc_interface/interface.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc_interface/interface/struct.Compiler.html)
+`ast::Crate` | struct | A syntax-level representation of a parsed crate | [The parser] | [src/librustc/hir/mod.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax/ast/struct.Crate.html)
+`hir::Crate` | struct | A more abstract, compiler-friendly form of a crate's AST | [The Hir] | [src/librustc/hir/mod.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/hir/struct.Crate.html)
+`DefId` | struct | One of four types of HIR node identifiers | [Identifiers in the HIR] | [src/librustc/hir/def_id.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/hir/def_id/struct.DefId.html)
+`DiagnosticBuilder` | struct | A struct for building up compiler diagnostics, such as errors or lints | [Emitting Diagnostics] | [src/librustc_errors/diagnostic_builder.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc_errors/struct.DiagnosticBuilder.html)
+`DocContext` | struct | A state container used by rustdoc when crawling through a crate to gather its documentation | [Rustdoc] | [src/librustdoc/core.rs](https://github.com/rust-lang/rust/blob/master/src/librustdoc/core.rs)
+`HirId` | struct | One of four types of HIR node identifiers | [Identifiers in the HIR] | [src/librustc/hir/mod.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/hir/struct.HirId.html)
+`NodeId` | struct | One of four types of HIR node identifiers. Being phased out | [Identifiers in the HIR] | [src/libsyntax/ast.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax/ast/struct.NodeId.html)
+`P` | struct | An owned immutable smart pointer. By contrast, `&T` is not owned, and `Box<T>` is not immutable. | None | [src/syntax/ptr.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax/ptr/struct.P.html)
+`ParamEnv` | struct | Information about generic parameters or `Self`, useful for working with associated or generic items | [Parameter Environment] | [src/librustc/ty/mod.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/struct.ParamEnv.html)
+`ParseSess` | struct | This struct contains information about a parsing session | [The parser] | [src/libsyntax/parse/mod.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax/parse/struct.ParseSess.html)
+`Query` | struct | Represents the result of query to the `Compiler` interface and allows stealing, borrowing, and returning the results of compiler passes. | [The Rustc Driver and Interface] | [src/librustc_interface/queries.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc_interface/queries/struct.Query.html)
+`Rib` | struct | Represents a single scope of names | [Name resolution] | [src/librustc_resolve/lib.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc_resolve/struct.Rib.html)
+`Session` | struct | The data associated with a compilation session | [The parser], [The Rustc Driver and Interface] | [src/librustc/session/mod.html](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/session/struct.Session.html)
+`SourceFile` | struct | Part of the `SourceMap`. Maps AST nodes to their source code for a single source file. Was previously called FileMap | [The parser] | [src/libsyntax_pos/lib.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax/source_map/struct.SourceFile.html)
+`SourceMap` | struct | Maps AST nodes to their source code. It is composed of `SourceFile`s. Was previously called CodeMap | [The parser] | [src/libsyntax/source_map.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax/source_map/struct.SourceMap.html)
+`Span` | struct  | A location in the user's source code, used for error reporting primarily | [Emitting Diagnostics] | [src/libsyntax_pos/span_encoding.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax_pos/struct.Span.html)
+`StringReader` | struct | This is the lexer used during parsing. It consumes characters from the raw source code being compiled and produces a series of tokens for use by the rest of the parser | [The parser] |  [src/libsyntax/parse/lexer/mod.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax/parse/lexer/struct.StringReader.html)
+`syntax::token_stream::TokenStream` | struct | An abstract sequence of tokens, organized into `TokenTree`s | [The parser], [Macro expansion] | [src/libsyntax/tokenstream.rs](https://doc.rust-lang.org/nightly/nightly-rustc/syntax/tokenstream/struct.TokenStream.html)
+`TraitDef` | struct | This struct contains a trait's definition with type information | [The `ty` modules] |  [src/librustc/ty/trait_def.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/trait_def/struct.TraitDef.html)
+`TraitRef` | struct | The combination of a trait and its input types (e.g. `P0: Trait<P1...Pn>`) | [Trait Solving: Goals and Clauses], [Trait Solving: Lowering impls]  |  [src/librustc/ty/sty.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/struct.TraitRef.html)
+`Ty<'tcx>` | struct | This is the internal representation of a type used for type checking | [Type checking] | [src/librustc/ty/mod.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/type.Ty.html)
+`TyCtxt<'cx, 'tcx, 'tcx>` | struct | The "typing context". This is the central data structure in the compiler. It is the context that you use to perform all manner of queries | [The `ty` modules] | [src/librustc/ty/context.rs](https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/struct.TyCtxt.html)
+-->
+<table><thead><tr><th>条目</th><th>种类</th><th>简述</th><th>章节</th><th>声明</th></tr></thead><tbody>
+<tr><td><code>BodyId</code></td><td>struct</td><td>四种 HIR 节点标识符类型之一</td><td><a href="../hir.html#hir-id">HIR 中的标识符</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/hir/struct.BodyId.html">src/librustc/hir/mod.rs</a></td></tr>
+<tr><td><code>Compiler</code></td><td>struct</td><td>表示编译器会话，可用于驱动编译。</td><td><a href="../rustc-driver.html">rustc 驱动与接口</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_interface/interface/struct.Compiler.html">src/librustc_interface/interface.rs</a></td></tr>
+<tr><td><code>ast::Crate</code></td><td>struct</td><td>经解析的 crate 的语法层面的表示</td><td><a href="../the-parser.html">解析器</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax/ast/struct.Crate.html">src/librustc/hir/mod.rs</a></td></tr>
+<tr><td><code>hir::Crate</code></td><td>struct</td><td>更加抽象的，编译器友好的 crate 的 AST 形式</td><td><a href="../hir.html">HIR</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/hir/struct.Crate.html">src/librustc/hir/mod.rs</a></td></tr>
+<tr><td><code>DefId</code></td><td>struct</td><td>四种 HIR 节点标识符类型之一</td><td><a href="../hir.html#hir-id">HIR 中的标识符</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/hir/def_id/struct.DefId.html">src/librustc/hir/def_id.rs</a></td></tr>
+<tr><td><code>DiagnosticBuilder</code></td><td>struct</td><td>用于构建编译器诊断，如错误或 lint 的结构体</td><td><a href="../diagnostics.html">触发诊断</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_errors/struct.DiagnosticBuilder.html">src/librustc_errors/diagnostic_builder.rs</a></td></tr>
+<tr><td><code>DocContext</code></td><td>struct</td><td>rustdoc 在收集 crate 的文档时所用到的状态容器</td><td><a href="../rustdoc.html">Rustdoc</a></td><td><a href="https://github.com/rust-lang/rust/blob/master/src/librustdoc/core.rs">src/librustdoc/core.rs</a></td></tr>
+<tr><td><code>HirId</code></td><td>struct</td><td>四种 HIR 节点标识符类型之一</td><td><a href="../hir.html#hir-id">HIR 中的标识符</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/hir/struct.HirId.html">src/librustc/hir/mod.rs</a></td></tr>
+<tr><td><code>NodeId</code></td><td>struct</td><td>四种 HIR 节点标识符类型之一，正在逐步淘汰</td><td><a href="../hir.html#hir-id">HIR 中的标识符</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax/ast/struct.NodeId.html">src/libsyntax/ast.rs</a></td></tr>
+<tr><td><code>P</code></td><td>struct</td><td>被占有的不可变智能指针。对比来说，<code>&amp;T</code> 未被占有，而 <code>Box&lt;T&gt;</code> 是不可变的</td><td>无</td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax/ptr/struct.P.html">src/syntax/ptr.rs</a></td></tr>
+<tr><td><code>ParamEnv</code></td><td>struct</td><td>泛型形参或 <code>Self</code> 的相关信息，在处理关联项或泛型项时使用</td><td><a href="../param_env.html">形参环境</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/struct.ParamEnv.html">src/librustc/ty/mod.rs</a></td></tr>
+<tr><td><code>ParseSess</code></td><td>struct</td><td>此结构体包含有关解析器会话的信息</td><td><a href="../the-parser.html">解析器</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax/parse/struct.ParseSess.html">src/libsyntax/parse/mod.rs</a></td></tr>
+<tr><td><code>Query</code></td><td>struct</td><td>表示 <code>Compiler</code> 接口的查询结果，允许偷用、借用和返回编译器每趟的结果</td><td><a href="../rustc-driver.html">rustc 驱动与接口</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_interface/queries/struct.Query.html">src/librustc_interface/queries.rs</a></td></tr>
+<tr><td><code>Rib</code></td><td>struct</td><td>表示名字的单个作用域</td><td><a href="../name-resolution.html">名字求解</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_resolve/struct.Rib.html">src/librustc_resolve/lib.rs</a></td></tr>
+<tr><td><code>Session</code></td><td>struct</td><td>于编译回话关联的数据</td><td><a href="../the-parser.html">解析器</a>，<a href="../rustc-driver.html">rustc 驱动与接口</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/session/struct.Session.html">src/librustc/session/mod.html</a></td></tr>
+<tr><td><code>SourceFile</code></td><td>struct</td><td><code>SourceMap</code> 的部分。将 AST 节点映射到它们的单个源文件的源码。曾名为 FileMap</td><td><a href="../the-parser.html">解析器</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax/source_map/struct.SourceFile.html">src/libsyntax_pos/lib.rs</a></td></tr>
+<tr><td><code>SourceMap</code></td><td>struct</td><td>将 AST 节点映射到它们的源码。它由 <code>SourceFile</code> 组成。曾名为 CodeMap</td><td><a href="../the-parser.html">解析器</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax/source_map/struct.SourceMap.html">src/libsyntax/source_map.rs</a></td></tr>
+<tr><td><code>Span</code></td><td>struct</td><td>用户源码中的位置，主要用于错误报告</td><td><a href="../diagnostics.html">触发诊断</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax_pos/struct.Span.html">src/libsyntax_pos/span_encoding.rs</a></td></tr>
+<tr><td><code>StringReader</code></td><td>struct</td><td>解析过程中使用的词法分析器。它从待编译的原始源码中读入字符，产生一系列词法标记以供解析器使用</td><td><a href="../the-parser.html">解析器</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax/parse/lexer/struct.StringReader.html">src/libsyntax/parse/lexer/mod.rs</a></td></tr>
+<tr><td><code>syntax::token_stream::TokenStream</code></td><td>struct</td><td>抽象的词法标记序列，被组织为 <code>TokenTree</code></td><td><a href="../the-parser.html">解析器</a>，<a href="../macro-expansion.html">宏展开</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/syntax/tokenstream/struct.TokenStream.html">src/libsyntax/tokenstream.rs</a></td></tr>
+<tr><td><code>TraitDef</code></td><td>struct</td><td>此结构体包含特质的定义及其类型信息</td><td><a href="../ty.html"><code>ty</code> 模块</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/trait_def/struct.TraitDef.html">src/librustc/ty/trait_def.rs</a></td></tr>
+<tr><td><code>TraitRef</code></td><td>struct</td><td>特质及其输入类型的组合（例如 <code>P0: Trait&lt;P1...Pn&gt;</code>）</td><td><a href="../traits/goals-and-clauses.html#domain-goals">特质求解：目标与子句</a>，<a href="../traits/lowering-rules.html#lowering-impls">特质求解：底层实现</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/struct.TraitRef.html">src/librustc/ty/sty.rs</a></td></tr>
+<tr><td><code>Ty&lt;'tcx&gt;</code></td><td>struct</td><td>类型的内部表示，用于类型检查</td><td><a href="../type-checking.html">类型检查</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/type.Ty.html">src/librustc/ty/mod.rs</a></td></tr>
+<tr><td><code>TyCtxt&lt;'cx, 'tcx, 'tcx&gt;</code></td><td>struct</td><td>「定型上下文（typing context）」。它是编译器中的核心数据结构。它是用于执行各种查询的上下文</td><td><a href="../ty.html"><code>ty</code> 模块</a></td><td><a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc/ty/struct.TyCtxt.html">src/librustc/ty/context.rs</a></td></tr>
+</tbody></table>
+<!--
+[The HIR]: ../hir.html
+[Identifiers in the HIR]: ../hir.html#hir-id
+[The parser]: ../the-parser.html
+[The Rustc Driver and Interface]: ../rustc-driver.html
+[Type checking]: ../type-checking.html
+[The `ty` modules]: ../ty.html
+[Rustdoc]: ../rustdoc.html
+[Emitting Diagnostics]: ../diagnostics.html
+[Macro expansion]: ../macro-expansion.html
+[Name resolution]: ../name-resolution.html
+[Parameter Environment]: ../param_env.html
+[Trait Solving: Goals and Clauses]: ../traits/goals-and-clauses.html#domain-goals
+[Trait Solving: Lowering impls]: ../traits/lowering-rules.html#lowering-impls
+-->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../appendix/glossary.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../important-links.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../appendix/glossary.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../important-links.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
